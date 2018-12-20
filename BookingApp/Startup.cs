@@ -12,6 +12,8 @@ using BookingApp.Helpers;
 using BookingApp.Contextes.Users;
 using BookingApp.Services.Users;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace BookingApp
 {
@@ -30,9 +32,9 @@ namespace BookingApp
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //services.AddAutoMapper();
-            services.AddDbContext<UserContext>();// to do connection string
+            services.AddDbContext<UserContext>(options => options.UseSqlite(Configuration.GetConnectionString("UsersDbContext")));
 
-            // configure strongly tyed settings objects
+            // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
@@ -68,6 +70,7 @@ namespace BookingApp
                     ValidateAudience = false
                 };
             });
+
             //DI for app services
             services.AddScoped<IUserService, UserService>();
         }
@@ -95,6 +98,7 @@ namespace BookingApp
                 app.UseHsts();
             }
 
+            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

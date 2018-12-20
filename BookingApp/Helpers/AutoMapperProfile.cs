@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BookingApp.Dtos.User;
-using BookingApp.Entities.User;
+using BookingApp.Dtos.Users;
+using BookingApp.Entities.Users;
 
 namespace BookingApp.Helpers
 {
