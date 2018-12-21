@@ -13,6 +13,8 @@ using BookingApp.Contextes.Users;
 using BookingApp.Services.Users;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
+
 
 
 namespace BookingApp
@@ -31,7 +33,7 @@ namespace BookingApp
         {
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            //services.AddAutoMapper();
+            services.AddAutoMapper();
             services.AddDbContext<UserContext>(options => options.UseSqlite(Configuration.GetConnectionString("UsersDbContext")));
 
             // configure strongly typed settings objects

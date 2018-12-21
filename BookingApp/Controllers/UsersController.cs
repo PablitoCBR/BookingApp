@@ -130,5 +130,12 @@ namespace BookingApp.Controllers
             _userService.Delete(id);
             return Ok();
         }
+
+        [AllowAnonymous]
+        [HttpGet("Test")]
+        public IActionResult Test()
+        {
+            return Json(new { result = "Test method of UsersController" });
+        }
     }
 }
