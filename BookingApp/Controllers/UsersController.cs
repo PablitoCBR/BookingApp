@@ -62,8 +62,8 @@ namespace BookingApp.Controllers
             {
                 Id = user.Id,
                 Username = user.Username,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
+                BusinessName = user.BusinessName,
+                Address = user.Address,
                 Token = tokenString
             });
         }

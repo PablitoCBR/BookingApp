@@ -5,13 +5,13 @@ using BookingApp.Interfaces.Users;
 using BookingApp.Entities.Users;
 using BookingApp.Contextes.Users;
 using BookingApp.Helpers;
-
+using Microsoft.EntityFrameworkCore;
 
 namespace BookingApp.Services.Users
 {
     public class UserService : IUserService
     {
-        private UserContext _context;
+        private readonly UserContext _context;
 
         public UserService(UserContext context)
         {
@@ -24,7 +24,7 @@ namespace BookingApp.Services.Users
                 return null;
 
             var user = _context.Users.SingleOrDefault(x => x.Username == username);
-
+ 
             // check if username exists
             if (user == null)
                 return null;
@@ -32,6 +32,8 @@ namespace BookingApp.Services.Users
             // check if password is correct
             if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                 return null;
+
+            user.Address = _context.Addresses.SingleOrDefault(x => x.Id == user.AddressId);
 
             // authentication successful
             return user;
@@ -55,6 +57,8 @@ namespace BookingApp.Services.Users
 
             if (_context.Users.Any(x => x.Username == user.Username))
                 throw new AppException("Username \"" + user.Username + "\" is already taken");
+            if (user.Address == null)
+                throw new AppException("Address is required!");
 
             byte[] passwordHash, passwordSalt;
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -83,8 +87,8 @@ namespace BookingApp.Services.Users
             }
 
             // update user properties
-            user.FirstName = userParam.FirstName;
-            user.LastName = userParam.LastName;
+            user.BusinessName = userParam.BusinessName;
+            user.Address = userParam.Address;
             user.Username = userParam.Username;
 
             // update password if it was entered
