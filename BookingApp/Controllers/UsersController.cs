@@ -49,7 +49,7 @@ namespace BookingApp.Controllers
                     {
                         new Claim(ClaimTypes.Name, user.Id.ToString())
                     }),
-                Expires = DateTime.UtcNow.AddMinutes(10), //Set to minutes for testing
+                Expires = DateTime.UtcNow.AddDays(1), 
                 SigningCredentials = new SigningCredentials(
                         new SymmetricSecurityKey(key),
                         SecurityAlgorithms.HmacSha256Signature
