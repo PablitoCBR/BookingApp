@@ -12,10 +12,12 @@ namespace BookingApp.Services.Users
     public class UserService : IUserService
     {
         private readonly UserContext _context;
+        private readonly IPasswordHandler _passwordHandler;
 
-        public UserService(UserContext context)
+        public UserService(UserContext context, IPasswordHandler passwordHandler)
         {
             _context = context;
+            _passwordHandler = passwordHandler;
         }
 
         public User Authenticate(string username, string password)
@@ -30,9 +32,16 @@ namespace BookingApp.Services.Users
                 return null;
 
             // check if password is correct
-            if (!VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+            try
+            {
+                if (!_passwordHandler.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
+                    return null;
+            }
+            catch (Exception e)
+            {
+                // Implement loggic for recording exceptions in app
                 return null;
-
+            }
             user.Address = _context.Addresses.SingleOrDefault(x => x.Id == user.AddressId);
 
             // authentication successful
@@ -61,8 +70,15 @@ namespace BookingApp.Services.Users
                 throw new AppException("Address is required!");
 
             byte[] passwordHash, passwordSalt;
-            CreatePasswordHash(password, out passwordHash, out passwordSalt);
-
+            try
+            {
+                _passwordHandler.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            }
+            catch (Exception e)
+            {
+                //Implement logic for logging exceptions
+                throw new AppException(e.Message);
+            }
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
@@ -86,6 +102,7 @@ namespace BookingApp.Services.Users
                     throw new AppException("Username " + userParam.Username + " is already taken");
             }
 
+            //var address = _context.Addresses.Find(user.AddressId);
             // update user properties
             user.BusinessName = userParam.BusinessName;
             user.Address = userParam.Address;
@@ -95,8 +112,14 @@ namespace BookingApp.Services.Users
             if (!string.IsNullOrWhiteSpace(password))
             {
                 byte[] passwordHash, passwordSalt;
-                CreatePasswordHash(password, out passwordHash, out passwordSalt);
-
+                try
+                {
+                    _passwordHandler.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+                }
+                catch (Exception e)
+                {
+                    throw new AppException(e.Message);
+                }
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
             }
@@ -108,44 +131,15 @@ namespace BookingApp.Services.Users
         public void Delete(int id)
         {
             var user = _context.Users.Find(id);
+            
             if (user != null)
             {
+                var address = _context.Addresses.Find(user.AddressId);
                 _context.Users.Remove(user);
+                //_context.Addresses.Remove(address);
+                
                 _context.SaveChanges();
             }
-        }
-
-        // private helper methods
-
-        private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
-        {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-
-            using (var hmac = new System.Security.Cryptography.HMACSHA512())
-            {
-                passwordSalt = hmac.Key;
-                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-        }
-
-        private static bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
-        {
-            if (password == null) throw new ArgumentNullException("password");
-            if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-            if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
-            if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
-
-            using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
-            {
-                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-                for (int i = 0; i < computedHash.Length; i++)
-                {
-                    if (computedHash[i] != storedHash[i]) return false;
-                }
-            }
-
-            return true;
         }
     }
 }

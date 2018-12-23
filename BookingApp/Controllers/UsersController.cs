@@ -21,8 +21,8 @@ namespace BookingApp.Controllers
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
-        private IUserService _userService;
-        private IMapper _mapper;
+        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
         private readonly AppSettings _appSettings;
 
         public UsersController(IUserService userService, IMapper mapper, IOptions<AppSettings> appSettings)
@@ -104,6 +104,9 @@ namespace BookingApp.Controllers
             return Ok(userDto);
         }
 
+        //Fix Update
+        //Change to not change values if they were not added in body reques
+        //Add updating address
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]UserDto userDto)
         {
@@ -123,7 +126,8 @@ namespace BookingApp.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
+         //Remove testing address
+         //Fix removing for addresses (cascade?)
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
