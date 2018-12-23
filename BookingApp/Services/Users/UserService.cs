@@ -11,13 +11,14 @@ namespace BookingApp.Services.Users
 {
     public class UserService : IUserService
     {
-        private readonly UserContext _context;
+        private readonly UserContext _userContext;
+        private readonly ErrorLogContext _errorLogContext;
         private readonly IPasswordHandler _passwordHandler;
         private readonly IUserDataValidator _userDataValidator;
 
         public UserService(UserContext context, IPasswordHandler passwordHandler, IUserDataValidator userDataValidator)
         {
-            _context = context;
+            _userContext = context;
             _passwordHandler = passwordHandler;
             _userDataValidator = userDataValidator;
         }
@@ -27,7 +28,7 @@ namespace BookingApp.Services.Users
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
 
-            var user = _context.Users.SingleOrDefault(x => x.Username == username);
+            var user = _userContext.Users.SingleOrDefault(x => x.Username == username);
  
             // check if username exists
             if (user == null)
@@ -39,12 +40,24 @@ namespace BookingApp.Services.Users
                 if (!_passwordHandler.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                     return null;
             }
-            catch (Exception e)
-            {
-                // Implement loggic for recording exceptions in app
+            catch (ArgumentException ex)
+            { 
                 return null;
             }
-            user.Address = _context.Addresses.SingleOrDefault(x => x.Id == user.AddressId);
+            catch (PasswordHandlerException ex)
+            {
+                var passwordExceptionLog = new PasswordExceptionLog()
+                {
+                    UserId = user.Id,
+                    Time = ex.Time,
+                    Message = ex.Message,
+                    ParamName = ex.ParamName
+                };
+                _errorLogContext.PasswordExceptionLogs.Add(passwordExceptionLog);
+                _errorLogContext.SaveChanges();
+                return null;
+            }
+            user.Address = _userContext.Addresses.SingleOrDefault(x => x.Id == user.AddressId);
 
             // authentication successful
             return user;
@@ -52,13 +65,13 @@ namespace BookingApp.Services.Users
 
         public IEnumerable<User> GetAll()
         {
-            return _context.Users.Include(x => x.Address);
+            return _userContext.Users.Include(x => x.Address);
         }
 
         public User GetById(int id)
         {
-            var user = _context.Users.Find(id);
-            user.Address = _context.Addresses.Find(user.AddressId);
+            var user = _userContext.Users.Find(id);
+            user.Address = _userContext.Addresses.Find(user.AddressId);
             return user;
         }
 
@@ -68,7 +81,7 @@ namespace BookingApp.Services.Users
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
-            if (_context.Users.Any(x => x.Username == user.Username))
+            if (_userContext.Users.Any(x => x.Username == user.Username))
                 throw new AppException("Username \"" + user.Username + "\" is already taken");
 
             if (!_userDataValidator.ValidateUser(user))
@@ -79,23 +92,35 @@ namespace BookingApp.Services.Users
             {
                 _passwordHandler.CreatePasswordHash(password, out passwordHash, out passwordSalt);
             }
-            catch (Exception e)
+            catch (ArgumentException e)
             {
-                //Implement logic for logging exceptions
                 throw new AppException(e.Message);
+            }
+            catch (PasswordHandlerException ex)
+            {
+                var passwordExceptionLog = new PasswordExceptionLog()
+                {
+                    UserId = user.Id,
+                    Time = ex.Time,
+                    Message = ex.Message,
+                    ParamName = ex.ParamName
+                };
+                _errorLogContext.PasswordExceptionLogs.Add(passwordExceptionLog);
+                _errorLogContext.SaveChanges();
+                throw new AppException("An internal problem occured");
             }
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _context.Users.Add(user);
-            _context.SaveChanges();
+            _userContext.Users.Add(user);
+            _userContext.SaveChanges();
 
             return user;
         }
 
         public void Update(User userParam, string password = null)
         {
-            var user = _context.Users.Find(userParam.Id);
+            var user = _userContext.Users.Find(userParam.Id);
 
             if (user == null)
                 throw new AppException("User not found");
@@ -103,11 +128,11 @@ namespace BookingApp.Services.Users
             if (userParam.Username != user.Username)
             {
                 // username has changed so check if the new username is already taken
-                if (_context.Users.Any(x => x.Username == userParam.Username))
+                if (_userContext.Users.Any(x => x.Username == userParam.Username))
                     throw new AppException("Username " + userParam.Username + " is already taken");
             }
             
-            var address = _context.Addresses.Find(user.AddressId);
+            var address = _userContext.Addresses.Find(user.AddressId);
             // update user properties
             user.BusinessName = userParam.BusinessName;
             user.Address = address;
@@ -123,30 +148,42 @@ namespace BookingApp.Services.Users
                 {
                     _passwordHandler.CreatePasswordHash(password, out passwordHash, out passwordSalt);
                 }
-                catch (Exception e)
+                catch (ArgumentException e)
                 {
-                    //TO DO loggin errors
                     throw new AppException(e.Message);
+                }
+                catch (PasswordHandlerException ex)
+                {
+                    var passwordExceptionLog = new PasswordExceptionLog()
+                    {
+                        UserId = user.Id,
+                        Time = ex.Time,
+                        Message = ex.Message,
+                        ParamName = ex.ParamName
+                    };
+                    _errorLogContext.PasswordExceptionLogs.Add(passwordExceptionLog);
+                    _errorLogContext.SaveChanges();
+                    throw new AppException("An internal problem occured");
                 }
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;
             }
 
-            _context.Users.Update(user);
-            _context.SaveChanges();
+            _userContext.Users.Update(user);
+            _userContext.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            var user = _context.Users.Find(id);
+            var user = _userContext.Users.Find(id);
 
             if (user != null)
             {
-                var address = _context.Addresses.Find(user.AddressId);
-                _context.Users.Remove(user);
-                _context.Addresses.Remove(address);
+                var address = _userContext.Addresses.Find(user.AddressId);
+                _userContext.Users.Remove(user);
+                _userContext.Addresses.Remove(address);
 
-                _context.SaveChanges();
+                _userContext.SaveChanges();
             }
             else throw new AppException("User not found!");
         }

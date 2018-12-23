@@ -1,10 +1,12 @@
 ﻿using System;
 using BookingApp.Interfaces.Users;
+using BookingApp.Helpers;
 
 namespace BookingApp.Services.Users
 {
     public class PasswordHandler : IPasswordHandler
     {
+        //TO DO logging internal errors eg. wrong stored password, bad saltHash or passwordHash
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException("password");
@@ -19,10 +21,10 @@ namespace BookingApp.Services.Users
 
         public bool VerifyPasswordHash(string password, byte[] storedHash, byte[] storedSalt)
         {
-            if (password == null) throw new ArgumentNullException("password");
+            //if (password == null) throw new ArgumentNullException("password"); next line chec if it is null
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
-            if (storedHash.Length != 64) throw new ArgumentException("Invalid length of password hash (64 bytes expected).", "passwordHash");
-            if (storedSalt.Length != 128) throw new ArgumentException("Invalid length of password salt (128 bytes expected).", "passwordHash");
+            if (storedHash.Length != 64) throw new PasswordHandlerException("passwordHash", DateTime.Now, "Invalid length of password hash stored (64 bytes expected).");
+            if (storedSalt.Length != 128) throw new PasswordHandlerException("saltHash" , DateTime.Now, "Invalid length of password salt stored (128 bytes expected).");
 
             using (var hmac = new System.Security.Cryptography.HMACSHA512(storedSalt))
             {
