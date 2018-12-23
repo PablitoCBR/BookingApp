@@ -15,11 +15,7 @@ namespace BookingApp.Services.Users
         private readonly IPasswordHandler _passwordHandler;
         private readonly IUserDataValidator _userDataValidator;
 
-        public UserService(
-            UserContext context,
-            IPasswordHandler passwordHandler,
-            IUserDataValidator userDataValidator
-            )
+        public UserService(UserContext context, IPasswordHandler passwordHandler, IUserDataValidator userDataValidator)
         {
             _context = context;
             _passwordHandler = passwordHandler;
@@ -143,15 +139,16 @@ namespace BookingApp.Services.Users
         public void Delete(int id)
         {
             var user = _context.Users.Find(id);
-            
+
             if (user != null)
             {
                 var address = _context.Addresses.Find(user.AddressId);
                 _context.Users.Remove(user);
                 _context.Addresses.Remove(address);
-                
+
                 _context.SaveChanges();
             }
+            else throw new AppException("User not found!");
         }
     }
 }

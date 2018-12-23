@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace BookingApp.Interfaces.Users
+﻿namespace BookingApp.Interfaces.Users
 {
     public interface IPasswordHandler
     {
