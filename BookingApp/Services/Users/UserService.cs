@@ -13,11 +13,17 @@ namespace BookingApp.Services.Users
     {
         private readonly UserContext _context;
         private readonly IPasswordHandler _passwordHandler;
+        private readonly IUserDataValidator _userDataValidator;
 
-        public UserService(UserContext context, IPasswordHandler passwordHandler)
+        public UserService(
+            UserContext context,
+            IPasswordHandler passwordHandler,
+            IUserDataValidator userDataValidator
+            )
         {
             _context = context;
             _passwordHandler = passwordHandler;
+            _userDataValidator = userDataValidator;
         }
 
         public User Authenticate(string username, string password)
@@ -50,12 +56,14 @@ namespace BookingApp.Services.Users
 
         public IEnumerable<User> GetAll()
         {
-            return _context.Users;
+            return _context.Users.Include(x => x.Address);
         }
 
         public User GetById(int id)
         {
-            return _context.Users.Find(id);
+            var user = _context.Users.Find(id);
+            user.Address = _context.Addresses.Find(user.AddressId);
+            return user;
         }
 
         public User Create(User user, string password)
@@ -66,8 +74,9 @@ namespace BookingApp.Services.Users
 
             if (_context.Users.Any(x => x.Username == user.Username))
                 throw new AppException("Username \"" + user.Username + "\" is already taken");
-            if (user.Address == null)
-                throw new AppException("Address is required!");
+
+            if (!_userDataValidator.ValidateUser(user))
+                throw new AppException("Invalid data!");
 
             byte[] passwordHash, passwordSalt;
             try
@@ -101,12 +110,14 @@ namespace BookingApp.Services.Users
                 if (_context.Users.Any(x => x.Username == userParam.Username))
                     throw new AppException("Username " + userParam.Username + " is already taken");
             }
-
-            //var address = _context.Addresses.Find(user.AddressId);
+            
+            var address = _context.Addresses.Find(user.AddressId);
             // update user properties
             user.BusinessName = userParam.BusinessName;
-            user.Address = userParam.Address;
+            user.Address = address;
             user.Username = userParam.Username;
+            if (!_userDataValidator.ValidateUser(user))
+                throw new AppException("Invalid data!");
 
             // update password if it was entered
             if (!string.IsNullOrWhiteSpace(password))
@@ -118,6 +129,7 @@ namespace BookingApp.Services.Users
                 }
                 catch (Exception e)
                 {
+                    //TO DO loggin errors
                     throw new AppException(e.Message);
                 }
                 user.PasswordHash = passwordHash;
@@ -136,7 +148,7 @@ namespace BookingApp.Services.Users
             {
                 var address = _context.Addresses.Find(user.AddressId);
                 _context.Users.Remove(user);
-                //_context.Addresses.Remove(address);
+                _context.Addresses.Remove(address);
                 
                 _context.SaveChanges();
             }
