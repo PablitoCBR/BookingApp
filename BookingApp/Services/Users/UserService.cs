@@ -16,9 +16,10 @@ namespace BookingApp.Services.Users
         private readonly IPasswordHandler _passwordHandler;
         private readonly IUserDataValidator _userDataValidator;
 
-        public UserService(UserContext context, IPasswordHandler passwordHandler, IUserDataValidator userDataValidator)
+        public UserService(UserContext context, ErrorLogContext errorLogContext, IPasswordHandler passwordHandler, IUserDataValidator userDataValidator)
         {
             _userContext = context;
+            _errorLogContext = errorLogContext;
             _passwordHandler = passwordHandler;
             _userDataValidator = userDataValidator;
         }
@@ -96,19 +97,6 @@ namespace BookingApp.Services.Users
             {
                 throw new AppException(e.Message);
             }
-            catch (PasswordHandlerException ex)
-            {
-                var passwordExceptionLog = new PasswordExceptionLog()
-                {
-                    UserId = user.Id,
-                    Time = ex.Time,
-                    Message = ex.Message,
-                    ParamName = ex.ParamName
-                };
-                _errorLogContext.PasswordExceptionLogs.Add(passwordExceptionLog);
-                _errorLogContext.SaveChanges();
-                throw new AppException("An internal problem occured");
-            }
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
@@ -151,19 +139,6 @@ namespace BookingApp.Services.Users
                 catch (ArgumentException e)
                 {
                     throw new AppException(e.Message);
-                }
-                catch (PasswordHandlerException ex)
-                {
-                    var passwordExceptionLog = new PasswordExceptionLog()
-                    {
-                        UserId = user.Id,
-                        Time = ex.Time,
-                        Message = ex.Message,
-                        ParamName = ex.ParamName
-                    };
-                    _errorLogContext.PasswordExceptionLogs.Add(passwordExceptionLog);
-                    _errorLogContext.SaveChanges();
-                    throw new AppException("An internal problem occured");
                 }
                 user.PasswordHash = passwordHash;
                 user.PasswordSalt = passwordSalt;

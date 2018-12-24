@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingApp.Migrations.Users
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20181222131443_Added_addressId_to_User")]
-    partial class Added_addressId_to_User
+    [Migration("20181224135223_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,15 +23,21 @@ namespace BookingApp.Migrations.Users
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .IsRequired();
 
                     b.Property<string>("Flat");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(10);
 
-                    b.Property<string>("PostalCode");
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(6);
 
-                    b.Property<string>("Street");
+                    b.Property<string>("Street")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -45,13 +51,17 @@ namespace BookingApp.Migrations.Users
 
                     b.Property<int>("AddressId");
 
-                    b.Property<string>("BusinessName");
+                    b.Property<string>("BusinessName")
+                        .IsRequired();
 
-                    b.Property<byte[]>("PasswordHash");
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired();
 
-                    b.Property<byte[]>("PasswordSalt");
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired();
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

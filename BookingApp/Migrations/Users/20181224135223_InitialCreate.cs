@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookingApp.Migrations.Users
 {
-    public partial class Added_addressId_to_User : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,10 +13,10 @@ namespace BookingApp.Migrations.Users
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    City = table.Column<string>(nullable: true),
-                    PostalCode = table.Column<string>(nullable: true),
-                    Street = table.Column<string>(nullable: true),
-                    Number = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: false),
+                    PostalCode = table.Column<string>(maxLength: 6, nullable: false),
+                    Street = table.Column<string>(nullable: false),
+                    Number = table.Column<string>(maxLength: 10, nullable: false),
                     Flat = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -30,11 +30,11 @@ namespace BookingApp.Migrations.Users
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    BusinessName = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true),
+                    BusinessName = table.Column<string>(nullable: false),
+                    Username = table.Column<string>(nullable: false),
                     AddressId = table.Column<int>(nullable: false),
-                    PasswordHash = table.Column<byte[]>(nullable: true),
-                    PasswordSalt = table.Column<byte[]>(nullable: true)
+                    PasswordHash = table.Column<byte[]>(nullable: false),
+                    PasswordSalt = table.Column<byte[]>(nullable: false)
                 },
                 constraints: table =>
                 {

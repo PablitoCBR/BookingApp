@@ -35,6 +35,7 @@ namespace BookingApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
             services.AddDbContext<UserContext>(options => options.UseSqlite(Configuration.GetConnectionString("UsersDbContext")));
+            services.AddDbContext<ErrorLogContext>(options => options.UseSqlite(Configuration.GetConnectionString("ErrorLogsDbContext")));
 
             // configure strongly typed settings objects
             var appSettingsSection = Configuration.GetSection("AppSettings");

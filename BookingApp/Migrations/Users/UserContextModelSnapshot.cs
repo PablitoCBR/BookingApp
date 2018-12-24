@@ -21,15 +21,21 @@ namespace BookingApp.Migrations.Users
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("City");
+                    b.Property<string>("City")
+                        .IsRequired();
 
                     b.Property<string>("Flat");
 
-                    b.Property<string>("Number");
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasMaxLength(10);
 
-                    b.Property<string>("PostalCode");
+                    b.Property<string>("PostalCode")
+                        .IsRequired()
+                        .HasMaxLength(6);
 
-                    b.Property<string>("Street");
+                    b.Property<string>("Street")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
@@ -43,13 +49,17 @@ namespace BookingApp.Migrations.Users
 
                     b.Property<int>("AddressId");
 
-                    b.Property<string>("BusinessName");
+                    b.Property<string>("BusinessName")
+                        .IsRequired();
 
-                    b.Property<byte[]>("PasswordHash");
+                    b.Property<byte[]>("PasswordHash")
+                        .IsRequired();
 
-                    b.Property<byte[]>("PasswordSalt");
+                    b.Property<byte[]>("PasswordSalt")
+                        .IsRequired();
 
-                    b.Property<string>("Username");
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
