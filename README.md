@@ -1,20 +1,21 @@
-BookingApp RESTful API
+<h1>BookingApp RESTful API</h1>
+<hr>
+<h3>Project goals:</h3>
+	<h5>1) user (some kind of bussiness) can create an accout</h5>
+	<h5>2) verified user can create their own working hours</h5>
+	<h5>3) users cab manage their schedules</h5>
+	<h5>4) guest can book service from user for particular date</h5>
+	<h5>5) users have to confirm reservation</h5>
+	<h5>6) guest can cancel reservation</h5>
+<br>
+<h3>Working functionality:</h3>
+	<h5>1) user (some kind of bussiness) can create an accout</h5>
+<br>
+<hr>
 
-Project goals:
-	1) user (some kind of bussiness) can create an accout
-	2) verified user can create their own working hours
-	3) users cab manage their schedules
-	4) guest can book service from user for particular date
-	5) users have to confirm reservation
-	6) guest can cancel reservation
-
-Working functionality:
-	1) user (some kind of bussiness) can create an accout
-	
-
-API Working modules:
-	1)UsersController
-	Route: https://localhost:44337/api/Users/{Method}
+<h3>API Working modules: </h3>
+	<h5>1)UsersController</h5>
+	<h5>Route: https://localhost:44337/api/Users/{Method}</h5>
 
 	Methods:
 
