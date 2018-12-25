@@ -108,8 +108,9 @@ namespace BookingApp.Services.Users
 
         public void Update(User userParam, string password = null)
         {
+            //TO DO: Modify updateing with CurrentValues and SetValues
             var user = _userContext.Users.Find(userParam.Id);
-
+           // var user = _userContext.Users.Include(u => u.Address).FirstOrDefault(u => u.Id == userParam.Id);
             if (user == null)
                 throw new AppException("User not found");
 
@@ -119,11 +120,12 @@ namespace BookingApp.Services.Users
                 if (_userContext.Users.Any(x => x.Username == userParam.Username))
                     throw new AppException("Username " + userParam.Username + " is already taken");
             }
-            
             var address = _userContext.Addresses.Find(user.AddressId);
+            //_userContext.Update(userParam.Address);
             // update user properties
+            _userContext.Addresses.Remove(address);
+            user.Address = userParam.Address;
             user.BusinessName = userParam.BusinessName;
-            user.Address = address;
             user.Username = userParam.Username;
             if (!_userDataValidator.ValidateUser(user))
                 throw new AppException("Invalid data!");
