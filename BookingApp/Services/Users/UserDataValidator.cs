@@ -33,6 +33,8 @@ namespace BookingApp.Services.Users
 
         public bool ValidateUser(User user)
         {
+            if (String.IsNullOrEmpty(user.Username))
+                return false;
             if (String.IsNullOrEmpty(user.BusinessName))
                 return false;
             if (user.Address != null)
