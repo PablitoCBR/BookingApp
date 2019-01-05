@@ -110,8 +110,14 @@ namespace BookingApp.Services.Users
         {
             var user = _userContext.Users.Find(userParam.Id);
             
+            // Check if user exist
             if (user == null)
                 throw new AppException("User not found");
+
+            // Check if provided data is valid
+            // TO DO make this async
+            if (!_userDataValidator.ValidateUser(userParam))
+                throw new AppException("Invalid data!");
 
             if (userParam.Username != user.Username)
             {
@@ -121,13 +127,13 @@ namespace BookingApp.Services.Users
             }
             var address = _userContext.Addresses.Find(user.AddressId);
             
+            // Remove old address from DB
             _userContext.Addresses.Remove(address);
+
             user.Address = userParam.Address;
             user.BusinessName = userParam.BusinessName;
             user.Username = userParam.Username;
 
-            if (!_userDataValidator.ValidateUser(user))
-                throw new AppException("Invalid data!");
 
             // update password if it was entered
             if (!string.IsNullOrWhiteSpace(password))

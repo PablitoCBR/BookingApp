@@ -6,7 +6,6 @@ namespace BookingApp.Services.Users
 {
     public class PasswordHandler : IPasswordHandler
     {
-        //TO DO logging internal errors eg. wrong stored password, bad saltHash or passwordHash
         public void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             if (password == null) throw new ArgumentNullException("password");

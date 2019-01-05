@@ -4,17 +4,20 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
+using System.Text;
 using System.Threading.Tasks;
+
+using AutoMapper;
+
 using BookingApp.Interfaces.Users;
 using BookingApp.Helpers;
 using BookingApp.Contextes.Users;
 using BookingApp.Services.Users;
-using Microsoft.Extensions.Logging;
-using Microsoft.EntityFrameworkCore;
-using AutoMapper;
-
+using BookingApp.Entities.Users;
 
 
 namespace BookingApp
@@ -34,16 +37,17 @@ namespace BookingApp
             services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
+
             services.AddDbContext<UserContext>(options => options.UseSqlite(Configuration.GetConnectionString("UsersDbContext")));
             services.AddDbContext<ErrorLogContext>(options => options.UseSqlite(Configuration.GetConnectionString("ErrorLogsDbContext")));
 
             // configure strongly typed settings objects
-            var appSettingsSection = Configuration.GetSection("AppSettings");
+            IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
 
             // configure jwt authentication
-            var appSettings = appSettingsSection.Get<AppSettings>();
-            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+            AppSettings appSettings = appSettingsSection.Get<AppSettings>();
+            byte[] key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -55,9 +59,9 @@ namespace BookingApp
                 {
                     OnTokenValidated = context =>
                     {
-                        var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                        var userId = int.Parse(context.Principal.Identity.Name);
-                        var user = userService.GetById(userId);
+                        IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
+                        int userId = int.Parse(context.Principal.Identity.Name);
+                        User user = userService.GetById(userId);
                         if (user == null)
                             context.Fail("Unauthorized");
                         return Task.CompletedTask;

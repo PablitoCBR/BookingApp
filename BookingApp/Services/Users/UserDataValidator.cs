@@ -24,7 +24,7 @@ namespace BookingApp.Services.Users
                 
         public bool ValidatePostalCode(string postalCode)
         {
-            string pattern = @"^[0-9]{2}-[0-9]{3}$";
+            const string pattern = @"^[0-9]{2}-[0-9]{3}$";
             Regex regex = new Regex(pattern);
             if (regex.IsMatch(postalCode))
                 return true;
