@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BookingApp.Entities.Schedules;
 
 namespace BookingApp.Entities.Users
 {
@@ -13,7 +14,6 @@ namespace BookingApp.Entities.Users
         [MinLength(2)]
         public string Username { get; set; }
         [Required]
-        [MinLength(3)]
         public virtual Address Address { get; set; }
         [Required]
         [ForeignKey("Address")]

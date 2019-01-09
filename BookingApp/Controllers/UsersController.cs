@@ -130,12 +130,5 @@ namespace BookingApp.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
-        [AllowAnonymous]
-        [HttpGet("Test")]
-        public IActionResult Test()
-        {
-            return Json(new { result = "API/UsersController Test Method!  Success!" });
-        }
     }
 }

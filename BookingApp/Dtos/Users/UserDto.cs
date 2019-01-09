@@ -1,4 +1,6 @@
-﻿namespace BookingApp.Dtos.Users
+﻿using BookingApp.Dtos.Schedules;
+
+namespace BookingApp.Dtos.Users
 {
     public class UserDto
     {

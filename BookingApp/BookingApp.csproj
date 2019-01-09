@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Contextes\Schedule\" />
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
