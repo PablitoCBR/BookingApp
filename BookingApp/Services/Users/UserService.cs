@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using BookingApp.Interfaces.Users;
 using BookingApp.Entities.Users;
 using BookingApp.Contextes.Users;
@@ -54,8 +55,10 @@ namespace BookingApp.Services.Users
                     Message = ex.Message,
                     ParamName = ex.ParamName
                 };
-                _errorLogContext.PasswordExceptionLogs.Add(passwordExceptionLog);
-                _errorLogContext.SaveChanges();
+                Task.Run(() => {
+                    _errorLogContext.PasswordExceptionLogs.AddAsync(passwordExceptionLog);
+                    _errorLogContext.SaveChangesAsync();
+                });
                 return null;
             }
             user.Address = _userContext.Addresses.SingleOrDefault(x => x.Id == user.AddressId);

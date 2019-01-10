@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Collections.Generic;
 using System;
+using BookingApp.Entities.Users;
 
 namespace BookingApp.Entities.Schedules
 {
-    public class Schedule
+    public class Reservation
     {
         [Key]
         public int Id { get; set; }
@@ -13,8 +13,12 @@ namespace BookingApp.Entities.Schedules
         [ForeignKey("User")]
         public int UserId { get; set; }
         [Required]
-        public int Day { get; set; } // 0-6
-        public TimeSpan Opening { get; set; }
-        public TimeSpan Closeing { get; set; }
+        public DateTime Date { get; set; }
+        [Required]
+        public int DurationOfServiceMinutes { get; set; }
+        [Required]
+        [MinLength(3)]
+        public string ServiceType { get; set; }
+        public string OptionalDescription { get; set; }
     }
 }

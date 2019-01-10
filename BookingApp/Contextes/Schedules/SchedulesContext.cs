@@ -8,5 +8,6 @@ namespace BookingApp.Contextes.Schedules
         public ScheduleContext(DbContextOptions<ScheduleContext> options) : base(options) { }
 
         public DbSet<Schedule> Schedules { get; set; }
+        public DbSet<Reservation> Reservations { get; set; }
     }
 }
