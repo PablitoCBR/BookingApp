@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using BookingApp.Services.Schedule;
-using BookingApp.Interfaces.Schedule;
+using BookingApp.Services.Schedules;
+using BookingApp.Interfaces.Schedules;
 
 namespace BookingApp.Controllers
 {
@@ -11,13 +11,12 @@ namespace BookingApp.Controllers
     [ApiController]
     public class ScheduleController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IScheduleService _scheduleService;
         
-        public ScheduleController(IScheduleService scheduleService, IMapper mapper)
+        public ScheduleController(IScheduleService scheduleService)
         {
-            _mapper = mapper;
             _scheduleService = scheduleService;
         }
+
     }
 }

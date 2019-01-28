@@ -6,16 +6,19 @@ using BookingApp.Contextes.Schedules;
 using BookingApp.Helpers;
 using BookingApp.Entities.Schedules;
 using System.Linq;
+using AutoMapper;
 
 namespace BookingApp.Services.Schedules
 {
     public class ScheduleService : IScheduleService
     {
         private readonly ScheduleContext _scheduleContext;
+        private readonly IMapper _mapper;
 
-        public ScheduleService(ScheduleContext scheduleContext)
+        public ScheduleService(ScheduleContext scheduleContext, IMapper mapper)
         {
             _scheduleContext = scheduleContext;
+            _mapper = mapper;
         }
 
         public void AddSchedule(int userId, IList<ScheduleDto> weekSchedule)
@@ -26,7 +29,7 @@ namespace BookingApp.Services.Schedules
             if (_scheduleContext.Schedules.Any(x => x.UserId == userId))
                 throw new AppException("Schedule for that user already exist!");
 
-            foreach(ScheduleDto schedule in weekSchedule)
+            foreach (ScheduleDto schedule in weekSchedule)
             {
                 try
                 {
@@ -38,28 +41,44 @@ namespace BookingApp.Services.Schedules
                         Closeing = schedule.Closeing
                     };
                     _scheduleContext.Schedules.Add(daySchedule);
-                } 
-                catch (ArgumentNullException ex)
+                }
+                catch (Exception ex)
                 {
                     throw new AppException(ex.Message, schedule);
-                }         
+                }
             }
             _scheduleContext.SaveChanges();
         }
 
         public IList<ScheduleDto> GetWeekSchedule(int userId)
         {
-            throw new System.NotImplementedException();
+            List<Schedule> weekSchedule = _scheduleContext.Schedules.Where(x => x.UserId == userId).ToList();
+            List<ScheduleDto> weekScheduleDto = _mapper.Map<List<Schedule>, List<ScheduleDto>>(weekSchedule);
+            return weekScheduleDto;
         }
 
         public void RemoveSchedule(int userId)
         {
-            throw new System.NotImplementedException();
+            _scheduleContext.Schedules.RemoveRange(
+                _scheduleContext.Schedules.Where(x => x.UserId == userId)
+                .ToArray()
+             );
         }
 
-        public void UpdateSchedule(int userId, IList<ScheduleDto> schedule)
+        public void UpdateSchedule(int userId, List<ScheduleDto> schedules)
         {
-            throw new System.NotImplementedException();
+            if (schedules == null || schedules.Count == 0)
+                throw new ArgumentException();
+
+            var schedulesToUpdate = _scheduleContext.Schedules
+                .Where(x => x.UserId == userId && schedules.Exists(y => y.Day == x.Day))
+                .ToList();
+            schedulesToUpdate.ForEach(schedule =>
+            {
+                schedule.Opening = schedules.FirstOrDefault(x => x.Day == schedule.Day).Opening;
+                schedule.Closeing = schedules.FirstOrDefault(x => x.Day == schedule.Day).Closeing;
+            });
+            _scheduleContext.SaveChanges(); 
         }
     }
 }
