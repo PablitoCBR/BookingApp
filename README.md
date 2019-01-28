@@ -3,7 +3,7 @@
 <h3>Project goals:</h3>
 	<h5>1) user (some kind of bussiness) can create an accout</h5>
 	<h5>2) verified user can create their own working hours</h5>
-	<h5>3) users cab manage their schedules</h5>
+	<h5>3) users can manage their schedules</h5>
 	<h5>4) guest can book service from user for particular date</h5>
 	<h5>5) users have to confirm reservation</h5>
 	<h5>6) guest can cancel reservation</h5>
