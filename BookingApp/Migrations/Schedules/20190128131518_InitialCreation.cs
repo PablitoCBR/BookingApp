@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BookingApp.Migrations.Schedules
 {
-    public partial class InitialCreate : Migration
+    public partial class InitialCreation : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,7 +17,8 @@ namespace BookingApp.Migrations.Schedules
                     Date = table.Column<DateTime>(nullable: false),
                     DurationOfServiceMinutes = table.Column<int>(nullable: false),
                     ServiceType = table.Column<string>(nullable: false),
-                    OptionalDescription = table.Column<string>(nullable: true)
+                    OptionalDescription = table.Column<string>(nullable: true),
+                    Confirmed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,8 +33,8 @@ namespace BookingApp.Migrations.Schedules
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(nullable: false),
                     Day = table.Column<int>(nullable: false),
-                    Opening = table.Column<TimeSpan>(nullable: true),
-                    Closeing = table.Column<TimeSpan>(nullable: true)
+                    Opening = table.Column<TimeSpan>(nullable: false),
+                    Closeing = table.Column<TimeSpan>(nullable: false)
                 },
                 constraints: table =>
                 {

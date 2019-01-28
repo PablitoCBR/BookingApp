@@ -21,6 +21,8 @@ namespace BookingApp.Migrations.Schedules
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Confirmed");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("DurationOfServiceMinutes");

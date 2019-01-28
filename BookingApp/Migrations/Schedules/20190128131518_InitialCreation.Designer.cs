@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingApp.Migrations.Schedules
 {
     [DbContext(typeof(ScheduleContext))]
-    [Migration("20190110190243_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190128131518_InitialCreation")]
+    partial class InitialCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,6 +22,8 @@ namespace BookingApp.Migrations.Schedules
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Confirmed");
 
                     b.Property<DateTime>("Date");
 

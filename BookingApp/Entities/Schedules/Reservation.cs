@@ -20,5 +20,7 @@ namespace BookingApp.Entities.Schedules
         [MinLength(3)]
         public string ServiceType { get; set; }
         public string OptionalDescription { get; set; }
+        [Required]
+        public bool Confirmed { get; set; }
     }
 }
