@@ -1,12 +1,12 @@
 # BookingApp RESTful API
 
 ## Project goals:
- [x] user (some kind of bussiness) can create an accout
- [x] verified user can create their own working hours
- [x] users can manage their schedules
- [ ] guest can book service from user for particular date
- [ ] users have to confirm reservation
- [ ] guest can cancel reservation
+###### [x] user (some kind of bussiness) can create an accout
+###### [x] verified user can create their own working hours
+###### [x] users can manage their schedules
+###### [ ] guest can book service from user for particular date
+###### [ ] users have to confirm reservation
+###### [ ] guest can cancel reservation
 
 #### API:
 
@@ -119,13 +119,13 @@ Key: id Vaule: {id of user}
 			}
 		]
 ```
-#### 2.2 Get schedule of given user [guest]
+#### 2.2. Get schedule of given user [guest]
 */{id} [HttpGet]* 
 
-#### 2.3) Remove schedule of given user [users acces only]
+#### 2.3. Remove schedule of given user [users acces only]
 */{id} [HttpDelete]*
 
-#### 2.4) Update schedule of given user
+#### 2.4. Update schedule of given user
 */{id} [HttpPut]*
 
 **BODY:**
