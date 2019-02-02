@@ -22,8 +22,8 @@
 	Methods:
 
 	1.1) Registering user [guest]
-	*/register [HttpPost]*
-	**BODY:**
+	/register [HttpPost]
+	BODY:
 	{
 	 "Username" = {username},
 	 "Password" = {password},
@@ -39,16 +39,16 @@
 	}
 
 	1.2) Verifying registered user [guest]
-	*/authenticate [HttpPost]*
-	**BODY:**
+	/authenticate [HttpPost]
+	BODY:
 	{
 	 "Username" = {username},
 	 "Password" = {password
 	}
 
 	1.3) Update user data [users acces only]
-	*/{id} [HttpPut]*
-	**BODY:**
+	/{id} [HttpPut]
+	BODY:
 	{
 	 "Username" = {username},
 	 "Password" = {password},
@@ -64,13 +64,13 @@
 	}	
 
 	1.4) Get all users [users acces only]
-	*/ [HttpGet]*
+	/ [HttpGet]
 
 	1.5) Get user by id [users acces only]
-	*/{id} [HttpGet]*
+	/{id} [HttpGet]
 
 	1.6) Delete user with id=? [users acces only]
-	*/{id} [HttpDelete]*
+	/{id} [HttpDelete]
 
 	
 <h4>2)ScheduleController</h4>
@@ -79,12 +79,12 @@
 	Methods:
 
 	2.1) Create new schedule [users acces only]
-	*/Create [HttpPost]*
+	/Create [HttpPost]
 	
-	**HEADERS:**
+	HEADERS:
 	Key: id Vaule: {id of user}
 
-	**BODY:** (if closed on a given day set opening and closeing to <b>null</b>)
+	BODY: (if closed on a given day set opening and closeing to <b>null</b>)
 		[
 			{
 				"Day": "0",
@@ -124,15 +124,15 @@
 		]
 
 	2.2) Get schedule of given user [guest]
-	*/{id} [HttpGet] *
+	/{id} [HttpGet] 
 
 	2.3) Remove schedule of given user [users acces only]
-	*/{id} [HttpDelete]*
+	/{id} [HttpDelete]
 
 	2.4) Update schedule of given user
-	*/{id} [HttpPut]*
+	/{id} [HttpPut]
 
-	**BODY:**
+	BODY:
 	[
 		{
 			"Day": "4",
