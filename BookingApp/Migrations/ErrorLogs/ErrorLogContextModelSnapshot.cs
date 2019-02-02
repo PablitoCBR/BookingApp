@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BookingApp.Migrations.Users.ErrorLogs
+namespace BookingApp.Migrations.ErrorLogs
 {
     [DbContext(typeof(ErrorLogContext))]
     partial class ErrorLogContextModelSnapshot : ModelSnapshot
@@ -29,7 +29,8 @@ namespace BookingApp.Migrations.Users.ErrorLogs
 
                     b.Property<DateTime>("Time");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

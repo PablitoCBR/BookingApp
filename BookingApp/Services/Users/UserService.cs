@@ -7,19 +7,20 @@ using BookingApp.Entities.Users;
 using BookingApp.Contextes.Users;
 using BookingApp.Helpers;
 using Microsoft.EntityFrameworkCore;
+using BookingApp.Interfaces.Repositories;
 
 namespace BookingApp.Services.Users
 {
     public class UserService : IUserService
     {
-        private readonly UserContext _userContext;
+        private readonly IUserRepository _userRepository;
         private readonly ErrorLogContext _errorLogContext;
         private readonly IPasswordHandler _passwordHandler;
         private readonly IUserDataValidator _userDataValidator;
 
-        public UserService(UserContext context, ErrorLogContext errorLogContext, IPasswordHandler passwordHandler, IUserDataValidator userDataValidator)
+        public UserService(IUserRepository repository, ErrorLogContext errorLogContext, IPasswordHandler passwordHandler, IUserDataValidator userDataValidator)
         {
-            _userContext = context;
+            _userRepository = repository;
             _errorLogContext = errorLogContext;
             _passwordHandler = passwordHandler;
             _userDataValidator = userDataValidator;
@@ -29,20 +30,19 @@ namespace BookingApp.Services.Users
         {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return null;
-
-            var user = _userContext.Users.SingleOrDefault(x => x.Username == username);
- 
-            // check if username exists
-            if (user == null)
-                return null;
-
-            // check if password is correct
+          
             try
             {
+                User user = _userRepository.GetByUsername(username);
                 if (!_passwordHandler.VerifyPasswordHash(password, user.PasswordHash, user.PasswordSalt))
                     return null;
+                return user;
             }
-            catch (ArgumentException ex)
+            catch (NullReferenceException)
+            {
+                return null;
+            }
+            catch (ArgumentException)
             { 
                 return null;
             }
@@ -50,7 +50,7 @@ namespace BookingApp.Services.Users
             {
                 var passwordExceptionLog = new PasswordExceptionLog()
                 {
-                    UserId = user.Id,
+                    Username = username,
                     Time = ex.Time,
                     Message = ex.Message,
                     ParamName = ex.ParamName
@@ -60,23 +60,19 @@ namespace BookingApp.Services.Users
                     _errorLogContext.SaveChangesAsync();
                 });
                 return null;
-            }
-            user.Address = _userContext.Addresses.SingleOrDefault(x => x.Id == user.AddressId);
-
-            // authentication successful
-            return user;
-        }
-
-        public IEnumerable<User> GetAll()
-        {
-            return _userContext.Users.Include(x => x.Address);
+            }         
         }
 
         public User GetById(int id)
         {
-            var user = _userContext.Users.Find(id);
-            user.Address = _userContext.Addresses.Find(user.AddressId);
-            return user;
+            try
+            {
+                return _userRepository.GetById(id);
+            }
+            catch(NullReferenceException)
+            {
+                return null;
+            }
         }
 
         public User Create(User user, string password)
@@ -85,7 +81,7 @@ namespace BookingApp.Services.Users
             if (string.IsNullOrWhiteSpace(password))
                 throw new AppException("Password is required");
 
-            if (_userContext.Users.Any(x => x.Username == user.Username))
+            if (_userRepository.CheckIfExistByUsername(user.Username))
                 throw new AppException("Username \"" + user.Username + "\" is already taken");
 
             if (!_userDataValidator.ValidateUser(user))
@@ -103,35 +99,37 @@ namespace BookingApp.Services.Users
             user.PasswordHash = passwordHash;
             user.PasswordSalt = passwordSalt;
 
-            _userContext.Users.Add(user);
-            _userContext.SaveChanges();
+            _userRepository.Add(user);
 
             return user;
         }
 
         public void Update(User userParam, string password = null)
         {
-            var user = _userContext.Users.Find(userParam.Id);
-            
-            // Check if user exist
-            if (user == null)
+            User user;
+            try
+            {
+                user = _userRepository.GetById(userParam.Id);
+            }
+            catch (NullReferenceException)
+            {
                 throw new AppException("User not found");
+            }
+                
 
             // Check if provided data is valid
-            // TO DO make this async
             if (!_userDataValidator.ValidateUser(userParam))
                 throw new AppException("Invalid data!");
 
             if (userParam.Username != user.Username)
             {
                 // username has changed so check if the new username is already taken
-                if (_userContext.Users.Any(x => x.Username == userParam.Username))
+                if (_userRepository.CheckIfExistByUsername(userParam.Username))
                     throw new AppException("Username " + userParam.Username + " is already taken");
             }
-            var address = _userContext.Addresses.Find(user.AddressId);
-            
+
             // Remove old address from DB
-            _userContext.Addresses.Remove(address);
+            _userRepository.RemoveAddress(user.Address);
 
             user.Address = userParam.Address;
             user.BusinessName = userParam.BusinessName;
@@ -154,23 +152,19 @@ namespace BookingApp.Services.Users
                 user.PasswordSalt = passwordSalt;
             }
 
-            _userContext.Users.Update(user);
-            _userContext.SaveChanges();
+            _userRepository.Update(user);
         }
 
         public void Delete(int id)
         {
-            var user = _userContext.Users.Find(id);
-
-            if (user != null)
+            try
             {
-                var address = _userContext.Addresses.Find(user.AddressId);
-                _userContext.Users.Remove(user);
-                _userContext.Addresses.Remove(address);
-
-                _userContext.SaveChanges();
+                _userRepository.Remove(_userRepository.GetById(id));
             }
-            else throw new AppException("User not found!");
+            catch(NullReferenceException)
+            {
+                throw new AppException("User not found!");
+            }
         }
     }
 }

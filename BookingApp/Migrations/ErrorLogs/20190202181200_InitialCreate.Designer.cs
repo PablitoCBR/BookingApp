@@ -6,10 +6,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BookingApp.Migrations.Users.ErrorLogs
+namespace BookingApp.Migrations.ErrorLogs
 {
     [DbContext(typeof(ErrorLogContext))]
-    [Migration("20181224135213_InitialCreate")]
+    [Migration("20190202181200_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,8 @@ namespace BookingApp.Migrations.Users.ErrorLogs
 
                     b.Property<DateTime>("Time");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("Username")
+                        .IsRequired();
 
                     b.HasKey("Id");
 

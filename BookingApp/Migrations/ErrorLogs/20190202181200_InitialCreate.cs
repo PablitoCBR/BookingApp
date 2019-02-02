@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace BookingApp.Migrations.Users.ErrorLogs
+namespace BookingApp.Migrations.ErrorLogs
 {
     public partial class InitialCreate : Migration
     {
@@ -13,7 +13,7 @@ namespace BookingApp.Migrations.Users.ErrorLogs
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UserId = table.Column<int>(nullable: false),
+                    Username = table.Column<string>(nullable: false),
                     Time = table.Column<DateTime>(nullable: false),
                     Message = table.Column<string>(nullable: false),
                     ParamName = table.Column<string>(nullable: false)

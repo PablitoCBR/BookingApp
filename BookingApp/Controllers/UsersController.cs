@@ -85,14 +85,6 @@ namespace BookingApp.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult GetAll()
-        {
-            var users = _userService.GetAll();
-            var userDtos = _mapper.Map<IList<UserDto>>(users);
-            return Ok(userDtos);
-        }
-
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {

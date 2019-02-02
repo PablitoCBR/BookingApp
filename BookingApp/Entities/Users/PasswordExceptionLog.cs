@@ -8,7 +8,7 @@ namespace BookingApp.Entities.Users
         [Key]
         public int Id { get; set; }
         [Required]
-        public int UserId { get; set; }
+        public string Username { get; set; }
         [Required]
         public DateTime Time { get; set; }
         [Required]

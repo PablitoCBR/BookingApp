@@ -6,6 +6,7 @@ using BookingApp.Interfaces.Services.Users;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using BookingApp.Entities.Users;
+using BookingApp.Repositories;
 
 namespace BookingAppxUnitTests.Users
 {
@@ -46,7 +47,7 @@ namespace BookingAppxUnitTests.Users
                     {
                         IUserService userService = new UserService
                             (
-                                userContext,
+                                new UserRepository(userContext),
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator()
@@ -93,7 +94,7 @@ namespace BookingAppxUnitTests.Users
                     {
                         IUserService userService = new UserService
                             (
-                                userContext,
+                                 new UserRepository(userContext),
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator()
@@ -134,7 +135,7 @@ namespace BookingAppxUnitTests.Users
                     {
                         IUserService userService = new UserService
                             (
-                                userContext,
+                                 new UserRepository(userContext),
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator()
@@ -175,7 +176,7 @@ namespace BookingAppxUnitTests.Users
                     {
                         IUserService userService = new UserService
                             (
-                                userContext,
+                                 new UserRepository(userContext),
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator()
@@ -233,7 +234,7 @@ namespace BookingAppxUnitTests.Users
                     {
                         IUserService userService = new UserService
                             (
-                                userContext,
+                                 new UserRepository(userContext),
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator()
@@ -276,7 +277,7 @@ namespace BookingAppxUnitTests.Users
                     {
                         IUserService userService = new UserService
                             (
-                                userContext,
+                                 new UserRepository(userContext),
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator()
@@ -302,7 +303,7 @@ namespace BookingAppxUnitTests.Users
                     {
                         IUserService userService = new UserService
                             (
-                                userContext,
+                                 new UserRepository(userContext),
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator()

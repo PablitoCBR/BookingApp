@@ -21,6 +21,8 @@ using BookingApp.Entities.Users;
 using BookingApp.Contextes.Schedules;
 using BookingApp.Interfaces.Services.Schedules;
 using BookingApp.Services.Schedules;
+using BookingApp.Interfaces.Repositories;
+using BookingApp.Repositories;
 
 
 namespace BookingApp
@@ -83,6 +85,7 @@ namespace BookingApp
             });
 
             //DI for app services
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IPasswordHandler, PasswordHandler>();
             services.AddSingleton<IUserDataValidator, UserDataValidator>();
