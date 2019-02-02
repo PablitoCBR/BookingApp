@@ -85,10 +85,11 @@ namespace BookingApp
             });
 
             //DI for app services
-            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IPasswordHandler, PasswordHandler>();
             services.AddSingleton<IUserDataValidator, UserDataValidator>();
+            services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<IScheduleService, ScheduleService>();
         }
 
