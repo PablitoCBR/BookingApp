@@ -2,7 +2,7 @@
 using System.Linq;
 using BookingApp.Services.Users;
 using BookingApp.Contextes.Users;
-using BookingApp.Interfaces.Users;
+using BookingApp.Interfaces.Services.Users;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using BookingApp.Entities.Users;

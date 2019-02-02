@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BookingApp.Dtos.Schedules;
 
-namespace BookingApp.Interfaces.Schedules
+namespace BookingApp.Interfaces.Services.Schedules
 {
     public interface IScheduleService
     {

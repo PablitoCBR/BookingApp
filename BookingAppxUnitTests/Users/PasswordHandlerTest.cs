@@ -1,5 +1,5 @@
 ﻿using Xunit;
-using BookingApp.Interfaces.Users;
+using BookingApp.Interfaces.Services.Users;
 using BookingApp.Services.Users;
 using System;
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using BookingApp.Interfaces.Users;
+using BookingApp.Interfaces.Services.Users;
 using BookingApp.Helpers;
 
 namespace BookingApp.Services.Users

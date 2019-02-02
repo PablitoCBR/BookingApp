@@ -1,4 +1,4 @@
-﻿namespace BookingApp.Interfaces.Users
+﻿namespace BookingApp.Interfaces.Services.Users
 {
     public interface IPasswordHandler
     {

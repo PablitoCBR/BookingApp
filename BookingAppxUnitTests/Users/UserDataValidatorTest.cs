@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using BookingApp.Services.Users;
-using BookingApp.Interfaces.Users;
+using BookingApp.Interfaces.Services.Users;
 using BookingApp.Entities.Users;
 
 namespace BookingAppxUnitTests.Users 

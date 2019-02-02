@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using BookingApp.Dtos.Users;
 using BookingApp.Entities.Users;
-using BookingApp.Interfaces.Users;
+using BookingApp.Interfaces.Services.Users;
 using BookingApp.Helpers;
 using AutoMapper;
 using Microsoft.Extensions.Options;

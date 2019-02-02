@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using BookingApp.Dtos.Schedules;
-using BookingApp.Interfaces.Schedules;
+using BookingApp.Interfaces.Services.Schedules;
 using BookingApp.Contextes.Schedules;
 using BookingApp.Helpers;
 using BookingApp.Entities.Schedules;

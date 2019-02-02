@@ -1,6 +1,6 @@
 ﻿using BookingApp.Entities.Users;
 
-namespace BookingApp.Interfaces.Users
+namespace BookingApp.Interfaces.Services.Users
 {
     public interface IUserDataValidator
     {

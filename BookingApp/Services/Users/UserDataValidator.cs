@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 using BookingApp.Entities.Users;
-using BookingApp.Interfaces.Users;
+using BookingApp.Interfaces.Services.Users;
 
 namespace BookingApp.Services.Users
 {

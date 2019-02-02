@@ -13,13 +13,13 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
-using BookingApp.Interfaces.Users;
+using BookingApp.Interfaces.Services.Users;
 using BookingApp.Helpers;
 using BookingApp.Contextes.Users;
 using BookingApp.Services.Users;
 using BookingApp.Entities.Users;
 using BookingApp.Contextes.Schedules;
-using BookingApp.Interfaces.Schedules;
+using BookingApp.Interfaces.Services.Schedules;
 using BookingApp.Services.Schedules;
 
 

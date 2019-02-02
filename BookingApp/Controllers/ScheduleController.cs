@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using BookingApp.Interfaces.Schedules;
+using BookingApp.Interfaces.Services.Schedules;
 using BookingApp.Dtos.Schedules;
 using BookingApp.Helpers;
 using System.Collections.Generic;
