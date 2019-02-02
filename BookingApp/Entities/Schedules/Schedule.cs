@@ -14,7 +14,7 @@ namespace BookingApp.Entities.Schedules
         public int UserId { get; set; }
         [Required]
         public int Day { get; set; } // 0-6
-        public TimeSpan Opening { get; set; }
-        public TimeSpan Closeing { get; set; }
+        public TimeSpan? Opening { get; set; }
+        public TimeSpan? Closeing { get; set; }
     }
 }

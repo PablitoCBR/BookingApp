@@ -19,6 +19,8 @@ using BookingApp.Contextes.Users;
 using BookingApp.Services.Users;
 using BookingApp.Entities.Users;
 using BookingApp.Contextes.Schedules;
+using BookingApp.Interfaces.Schedules;
+using BookingApp.Services.Schedules;
 
 
 namespace BookingApp
@@ -84,6 +86,7 @@ namespace BookingApp
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IPasswordHandler, PasswordHandler>();
             services.AddSingleton<IUserDataValidator, UserDataValidator>();
+            services.AddScoped<IScheduleService, ScheduleService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

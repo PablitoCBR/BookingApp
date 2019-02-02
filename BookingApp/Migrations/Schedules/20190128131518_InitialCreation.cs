@@ -33,8 +33,8 @@ namespace BookingApp.Migrations.Schedules
                         .Annotation("Sqlite:Autoincrement", true),
                     UserId = table.Column<int>(nullable: false),
                     Day = table.Column<int>(nullable: false),
-                    Opening = table.Column<TimeSpan>(nullable: false),
-                    Closeing = table.Column<TimeSpan>(nullable: false)
+                    Opening = table.Column<TimeSpan>(nullable: true),
+                    Closeing = table.Column<TimeSpan>(nullable: true)
                 },
                 constraints: table =>
                 {

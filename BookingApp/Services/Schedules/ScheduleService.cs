@@ -52,17 +52,28 @@ namespace BookingApp.Services.Schedules
 
         public IList<ScheduleDto> GetWeekSchedule(int userId)
         {
+
             List<Schedule> weekSchedule = _scheduleContext.Schedules.Where(x => x.UserId == userId).ToList();
+            
+            //Check if schedule was found
+            if (weekSchedule.Count == 0)
+                throw new AppException($"Schedule for id = {userId} not found!");
+
             List<ScheduleDto> weekScheduleDto = _mapper.Map<List<Schedule>, List<ScheduleDto>>(weekSchedule);
             return weekScheduleDto;
         }
 
         public void RemoveSchedule(int userId)
         {
+            //Check if schedule for user exist
+            if (!_scheduleContext.Schedules.Any(x => x.UserId == userId))
+                throw new AppException("Schedule for user not exist!");
+
             _scheduleContext.Schedules.RemoveRange(
                 _scheduleContext.Schedules.Where(x => x.UserId == userId)
                 .ToArray()
              );
+            _scheduleContext.SaveChanges();
         }
 
         public void UpdateSchedule(int userId, List<ScheduleDto> schedules)
