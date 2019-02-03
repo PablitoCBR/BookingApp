@@ -8,13 +8,12 @@ namespace BookingAppxUnitTests.Users
     public class PasswordHandlerTest
     {
         private IPasswordHandler _passwordHandler = new PasswordHandler();
-        private string _password = "Kn_KoLoRUG";
+        private readonly string _password = "Kn_KoLoRUG";
 
         [Fact]
         public void CreatePasswordHashTest()
         {
-            byte[] passwordSalt, passwordHash;
-            _passwordHandler.CreatePasswordHash(_password, out passwordHash, out passwordSalt);
+            _passwordHandler.CreatePasswordHash(_password, out byte[] passwordHash, out byte[] passwordSalt);
             Assert.NotNull(passwordHash);
             Assert.NotNull(passwordHash);
             Assert.Equal(64, passwordHash.Length);
@@ -25,8 +24,7 @@ namespace BookingAppxUnitTests.Users
         public void VarifyPasswordHashTest()
         {
             string wrongPassword = "knkolorug";
-            byte[] passwordSalt, passwordHash;
-            _passwordHandler.CreatePasswordHash(_password, out passwordHash, out passwordSalt);
+            _passwordHandler.CreatePasswordHash(_password, out byte[] passwordHash, out byte[] passwordSalt);
 
             Assert.True(_passwordHandler.VerifyPasswordHash(_password, passwordHash, passwordSalt));
             Assert.False(_passwordHandler.VerifyPasswordHash(wrongPassword, passwordHash, passwordSalt));
