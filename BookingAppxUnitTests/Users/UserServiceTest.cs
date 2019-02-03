@@ -9,13 +9,13 @@ using BookingApp.Entities.Users;
 using BookingApp.Repositories;
 using AutoMapper;
 using BookingApp.Helpers;
-
+using System;
 
 namespace BookingAppxUnitTests.Users
 {
     public class UserServiceTest
     {
-        private User _user = new User()
+        private readonly User _user = new User()
         {
             BusinessName = "Alfa Brodnica",
             Username = "Anna",
@@ -28,13 +28,12 @@ namespace BookingAppxUnitTests.Users
             }
         };
         private SqliteConnection _connection = new SqliteConnection("DataSource=:memory:");
+        private bool mapperFlag = false;
 
         [Fact]
         public void RegisterTest()
         {
             _connection.Open();
-            AutoMapper.Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
@@ -55,7 +54,7 @@ namespace BookingAppxUnitTests.Users
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator(),
-                                AutoMapper.Mapper.Instance
+                                null
                             );
                         var userexpected = userService.Create(_user, "admin");
                         Assert.NotNull(userexpected);
@@ -83,8 +82,6 @@ namespace BookingAppxUnitTests.Users
         public void AuthenticateTest()
         {
             _connection.Open();
-            AutoMapper.Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
@@ -105,7 +102,7 @@ namespace BookingAppxUnitTests.Users
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator(),
-                                AutoMapper.Mapper.Instance
+                                null
                             );
                         string password = "admin";
                         var userexpected = userService.Create(_user, password);
@@ -127,8 +124,12 @@ namespace BookingAppxUnitTests.Users
         public void GetByIdTest()
         {
             _connection.Open();
-            AutoMapper.Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
+            try
+            {
+                Mapper.Reset();
+                Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
+            } catch (Exception) { }
+            
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
@@ -149,7 +150,7 @@ namespace BookingAppxUnitTests.Users
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator(),
-                                AutoMapper.Mapper.Instance
+                                Mapper.Instance
                             );
                         string password = "admin";
                         var userexpected = userService.Create(_user, password);
@@ -173,8 +174,6 @@ namespace BookingAppxUnitTests.Users
         public void DeleteTest()
         {
             _connection.Open();
-            AutoMapper.Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
@@ -195,7 +194,7 @@ namespace BookingAppxUnitTests.Users
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator(),
-                                AutoMapper.Mapper.Instance
+                                null
                             );
                         string password = "admin";
                         var userexpected = userService.Create(_user, password);
@@ -218,8 +217,6 @@ namespace BookingAppxUnitTests.Users
         public void UpdateTest()
         {
             _connection.Open();
-            AutoMapper.Mapper.Reset();
-            Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
@@ -240,7 +237,7 @@ namespace BookingAppxUnitTests.Users
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator(),
-                                AutoMapper.Mapper.Instance
+                                null
                             );
                         var userexpected = userService.Create(_user, "admin");
                         Assert.NotNull(userexpected);
@@ -256,7 +253,8 @@ namespace BookingAppxUnitTests.Users
                     Assert.NotNull(userContext.Users.Single().PasswordHash);
                     Assert.NotNull(userContext.Users.Single().PasswordSalt);
                 }
-                AutoMapper.Mapper.Reset();
+
+                Mapper.Reset();
                 Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
 
                 using (var userContext = new UserContext(userOptions))
@@ -269,7 +267,7 @@ namespace BookingAppxUnitTests.Users
                                 logContext,
                                 new PasswordHandler(),
                                 new UserDataValidator(),
-                                AutoMapper.Mapper.Instance
+                                Mapper.Instance
                             );
                         User updateUser = new User()
                         {
