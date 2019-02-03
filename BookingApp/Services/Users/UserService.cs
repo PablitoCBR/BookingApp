@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using BookingApp.Interfaces.Services.Users;
 using BookingApp.Entities.Users;
 using BookingApp.Contextes.Users;
 using BookingApp.Helpers;
-using Microsoft.EntityFrameworkCore;
 using BookingApp.Interfaces.Repositories;
+using BookingApp.Dtos.Users;
+using AutoMapper;
 
 namespace BookingApp.Services.Users
 {
@@ -17,13 +16,16 @@ namespace BookingApp.Services.Users
         private readonly ErrorLogContext _errorLogContext;
         private readonly IPasswordHandler _passwordHandler;
         private readonly IUserDataValidator _userDataValidator;
+        private readonly IMapper _mapper;
 
-        public UserService(IUserRepository repository, ErrorLogContext errorLogContext, IPasswordHandler passwordHandler, IUserDataValidator userDataValidator)
+        public UserService(IUserRepository repository, ErrorLogContext errorLogContext, 
+            IPasswordHandler passwordHandler, IUserDataValidator userDataValidator, IMapper mapper)
         {
             _userRepository = repository;
             _errorLogContext = errorLogContext;
             _passwordHandler = passwordHandler;
             _userDataValidator = userDataValidator;
+            _mapper = mapper;
         }
 
         public User Authenticate(string username, string password)
@@ -63,11 +65,12 @@ namespace BookingApp.Services.Users
             }         
         }
 
-        public User GetById(int id)
+        public UserDto GetById(int id)
         {
             try
             {
-                return _userRepository.GetById(id);
+                User user = _userRepository.GetById(id);
+                return _mapper.Map<UserDto>(user);
             }
             catch(NullReferenceException)
             {

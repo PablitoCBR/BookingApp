@@ -2,12 +2,9 @@
 using System;
 using BookingApp.Dtos.Schedules;
 using BookingApp.Interfaces.Services.Schedules;
-using BookingApp.Contextes.Schedules;
 using BookingApp.Helpers;
 using BookingApp.Entities.Schedules;
 using BookingApp.Interfaces.Repositories;
-using BookingApp.Interfaces.Services;
-using System.Linq;
 using AutoMapper;
 
 namespace BookingApp.Services.Schedules
@@ -63,7 +60,7 @@ namespace BookingApp.Services.Schedules
         public void UpdateSchedule(int userId, List<ScheduleDto> schedules)
         {
             if (schedules == null || schedules.Count == 0)
-                throw new ArgumentException();
+                throw new ArgumentException("No data provided!");
 
             _scheduleRepository.Update(userId, schedules);
         }

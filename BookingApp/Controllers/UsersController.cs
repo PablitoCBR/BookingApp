@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -60,11 +59,11 @@ namespace BookingApp.Controllers
 
             return Ok(new
             {
-                Id = user.Id,
-                Username = user.Username,
-                BusinessName = user.BusinessName,
-                Address = user.Address,
-                Token = tokenString
+                user.Id,
+                user.Username,
+                user.BusinessName,
+                user.Address,
+                tokenString
             });
         }
 
@@ -88,9 +87,11 @@ namespace BookingApp.Controllers
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
-            var user = _userService.GetById(id);
-            var userDto = _mapper.Map<UserDto>(user);
-            return Ok(userDto);
+            
+            UserDto user = _userService.GetById(id);
+            if (user == null)
+                return BadRequest(new { message = $"User with id: {id} was not found!" });
+            else return Ok(user);
         }
 
         [HttpPut("{id}")]
