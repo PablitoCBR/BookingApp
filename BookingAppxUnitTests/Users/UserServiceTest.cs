@@ -11,6 +11,7 @@ using AutoMapper;
 using BookingApp.Helpers;
 using System;
 
+
 namespace BookingAppxUnitTests.Users
 {
     public class UserServiceTest
@@ -29,6 +30,7 @@ namespace BookingAppxUnitTests.Users
         };
         private SqliteConnection _connection = new SqliteConnection("DataSource=:memory:");
 
+
         [Fact]
         public void RegisterTest()
         {
@@ -36,7 +38,6 @@ namespace BookingAppxUnitTests.Users
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
-                var logOptions = new DbContextOptionsBuilder<ErrorLogContext>().UseSqlite(_connection).Options;
 
                 using (var userContext = new UserContext(userOptions))
                 {
@@ -45,19 +46,17 @@ namespace BookingAppxUnitTests.Users
 
                 using (var userContext = new UserContext(userOptions))
                 {
-                    using (var logContext = new ErrorLogContext(logOptions))
-                    {
-                        IUserService userService = new UserService
+                    IUserService userService = new UserService
                             (
                                 new UserRepository(userContext),
-                                logContext,
+                                null,
                                 new PasswordHandler(),
                                 new UserDataValidator(),
                                 null
                             );
-                        var userexpected = userService.Create(_user, "admin");
-                        Assert.NotNull(userexpected);
-                    }
+                    var userexpected = userService.Create(_user, "admin");
+                    Assert.NotNull(userexpected);
+
                 }
 
                 using (var userContext = new UserContext(userOptions))
@@ -84,7 +83,6 @@ namespace BookingAppxUnitTests.Users
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
-                var logOptions = new DbContextOptionsBuilder<ErrorLogContext>().UseSqlite(_connection).Options;
 
                 using (var userContext = new UserContext(userOptions))
                 {
@@ -93,23 +91,22 @@ namespace BookingAppxUnitTests.Users
 
                 using (var userContext = new UserContext(userOptions))
                 {
-                    using (var logContext = new ErrorLogContext(logOptions))
-                    {
-                        IUserService userService = new UserService
-                            (
-                                 new UserRepository(userContext),
-                                logContext,
-                                new PasswordHandler(),
-                                new UserDataValidator(),
-                                null
-                            );
-                        string password = "admin";
-                        var userexpected = userService.Create(_user, password);
-                        Assert.NotNull(userexpected);
 
-                        var response = userService.Authenticate("Anna", password);
-                        Assert.NotNull(response);
-                    }
+                    IUserService userService = new UserService
+                        (
+                            new UserRepository(userContext),
+                            null,
+                            new PasswordHandler(),
+                            new UserDataValidator(),
+                            null
+                        );
+                    string password = "admin";
+                    var userexpected = userService.Create(_user, password);
+                    Assert.NotNull(userexpected);
+
+                    var response = userService.Authenticate("Anna", password);
+                    Assert.NotNull(response);
+
                 }
 
             }
@@ -127,12 +124,12 @@ namespace BookingAppxUnitTests.Users
             {
                 Mapper.Reset();
                 Mapper.Initialize(cfg => cfg.AddProfile<AutoMapperProfile>());
-            } catch (Exception) { }
-            
+            }
+            catch (Exception) { }
+
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
-                var logOptions = new DbContextOptionsBuilder<ErrorLogContext>().UseSqlite(_connection).Options;
 
                 using (var userContext = new UserContext(userOptions))
                 {
@@ -141,23 +138,21 @@ namespace BookingAppxUnitTests.Users
 
                 using (var userContext = new UserContext(userOptions))
                 {
-                    using (var logContext = new ErrorLogContext(logOptions))
-                    {
-                        IUserService userService = new UserService
-                            (
-                                 new UserRepository(userContext),
-                                logContext,
-                                new PasswordHandler(),
-                                new UserDataValidator(),
-                                Mapper.Instance
-                            );
-                        string password = "admin";
-                        var userexpected = userService.Create(_user, password);
-                        Assert.NotNull(userexpected);
 
-                        var response = userService.GetById(1);
-                        Assert.NotNull(response);
-                    }
+                    IUserService userService = new UserService
+                        (
+                             new UserRepository(userContext),
+                            null,
+                            new PasswordHandler(),
+                            new UserDataValidator(),
+                            Mapper.Instance
+                        );
+                    string password = "admin";
+                    var userexpected = userService.Create(_user, password);
+                    Assert.NotNull(userexpected);
+
+                    var response = userService.GetById(1);
+                    Assert.NotNull(response);
                 }
 
             }
@@ -167,7 +162,7 @@ namespace BookingAppxUnitTests.Users
             }
         }
 
-        
+
 
         [Fact]
         public void DeleteTest()
@@ -176,7 +171,6 @@ namespace BookingAppxUnitTests.Users
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
-                var logOptions = new DbContextOptionsBuilder<ErrorLogContext>().UseSqlite(_connection).Options;
 
                 using (var userContext = new UserContext(userOptions))
                 {
@@ -185,24 +179,21 @@ namespace BookingAppxUnitTests.Users
 
                 using (var userContext = new UserContext(userOptions))
                 {
-                    using (var logContext = new ErrorLogContext(logOptions))
-                    {
-                        IUserService userService = new UserService
-                            (
-                                 new UserRepository(userContext),
-                                logContext,
-                                new PasswordHandler(),
-                                new UserDataValidator(),
-                                null
-                            );
-                        string password = "admin";
-                        var userexpected = userService.Create(_user, password);
-                        Assert.NotNull(userexpected);
+                    IUserService userService = new UserService
+                        (
+                            new UserRepository(userContext),
+                            null,
+                            new PasswordHandler(),
+                            new UserDataValidator(),
+                            null
+                        );
+                    string password = "admin";
+                    var userexpected = userService.Create(_user, password);
+                    Assert.NotNull(userexpected);
 
-                        Assert.Equal(1, userContext.Users.Count());
-                        userService.Delete(1);
-                        Assert.Equal(0, userContext.Users.Count());
-                    }
+                    Assert.Equal(1, userContext.Users.Count());
+                    userService.Delete(1);
+                    Assert.Equal(0, userContext.Users.Count());
                 }
 
             }
@@ -219,7 +210,6 @@ namespace BookingAppxUnitTests.Users
             try
             {
                 var userOptions = new DbContextOptionsBuilder<UserContext>().UseSqlite(_connection).Options;
-                var logOptions = new DbContextOptionsBuilder<ErrorLogContext>().UseSqlite(_connection).Options;
 
                 using (var userContext = new UserContext(userOptions))
                 {
@@ -228,19 +218,16 @@ namespace BookingAppxUnitTests.Users
 
                 using (var userContext = new UserContext(userOptions))
                 {
-                    using (var logContext = new ErrorLogContext(logOptions))
-                    {
-                        IUserService userService = new UserService
-                            (
-                                 new UserRepository(userContext),
-                                logContext,
-                                new PasswordHandler(),
-                                new UserDataValidator(),
-                                null
-                            );
-                        var userexpected = userService.Create(_user, "admin");
-                        Assert.NotNull(userexpected);
-                    }
+                    IUserService userService = new UserService
+                        (
+                            new UserRepository(userContext),
+                            null,
+                            new PasswordHandler(),
+                            new UserDataValidator(),
+                            null
+                        );
+                    var userexpected = userService.Create(_user, "admin");
+                    Assert.NotNull(userexpected);
                 }
 
                 using (var userContext = new UserContext(userOptions))
@@ -258,31 +245,28 @@ namespace BookingAppxUnitTests.Users
 
                 using (var userContext = new UserContext(userOptions))
                 {
-                    using (var logContext = new ErrorLogContext(logOptions))
+                    IUserService userService = new UserService
+                        (
+                            new UserRepository(userContext),
+                            null,
+                            new PasswordHandler(),
+                            new UserDataValidator(),
+                            Mapper.Instance
+                        );
+                    User updateUser = new User()
                     {
-                        IUserService userService = new UserService
-                            (
-                                 new UserRepository(userContext),
-                                logContext,
-                                new PasswordHandler(),
-                                new UserDataValidator(),
-                                Mapper.Instance
-                            );
-                        User updateUser = new User()
+                        Id = 1,
+                        BusinessName = "Alfa",
+                        Username = "Anna1",
+                        Address = new Address()
                         {
-                            Id = 1,
-                            BusinessName = "Alfa",
-                            Username = "Anna1",
-                            Address = new Address()
-                            {
-                                City = "Gdańsk",
-                                PostalCode = "87-300",
-                                Street = "Henryka Sienkiewicza",
-                                Number = "25"
-                            }
-                        };
-                        userService.Update(updateUser, "admin1");
-                    }
+                            City = "Gdańsk",
+                            PostalCode = "87-300",
+                            Street = "Henryka Sienkiewicza",
+                            Number = "25"
+                        }
+                    };
+                    userService.Update(updateUser, "admin1");
                 }
                 using (var userContext = new UserContext(userOptions))
                 {

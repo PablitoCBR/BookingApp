@@ -7,22 +7,23 @@ using BookingApp.Helpers;
 using BookingApp.Interfaces.Repositories;
 using BookingApp.Dtos.Users;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace BookingApp.Services.Users
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
-        private readonly ErrorLogContext _errorLogContext;
+        private readonly ILoggerFactory _loggerFactory;
         private readonly IPasswordHandler _passwordHandler;
         private readonly IUserDataValidator _userDataValidator;
         private readonly IMapper _mapper;
 
-        public UserService(IUserRepository repository, ErrorLogContext errorLogContext, 
+        public UserService(IUserRepository repository, ILoggerFactory loggerFactory, 
             IPasswordHandler passwordHandler, IUserDataValidator userDataValidator, IMapper mapper)
         {
             _userRepository = repository;
-            _errorLogContext = errorLogContext;
+            _loggerFactory = loggerFactory;
             _passwordHandler = passwordHandler;
             _userDataValidator = userDataValidator;
             _mapper = mapper;
@@ -50,17 +51,8 @@ namespace BookingApp.Services.Users
             }
             catch (PasswordHandlerException ex)
             {
-                var passwordExceptionLog = new PasswordExceptionLog()
-                {
-                    Username = username,
-                    Time = ex.Time,
-                    Message = ex.Message,
-                    ParamName = ex.ParamName
-                };
-                Task.Run(() => {
-                    _errorLogContext.PasswordExceptionLogs.AddAsync(passwordExceptionLog);
-                    _errorLogContext.SaveChangesAsync();
-                });
+                ILogger logger = _loggerFactory.CreateLogger("Password error logger");
+                logger.LogCritical(ex, ex.Message, ex.ParamName);
                 return null;
             }         
         }
