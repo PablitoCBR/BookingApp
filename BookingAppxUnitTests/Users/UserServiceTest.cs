@@ -28,7 +28,6 @@ namespace BookingAppxUnitTests.Users
             }
         };
         private SqliteConnection _connection = new SqliteConnection("DataSource=:memory:");
-        private bool mapperFlag = false;
 
         [Fact]
         public void RegisterTest()
