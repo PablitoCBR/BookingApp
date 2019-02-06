@@ -4,14 +4,15 @@
 ###### [x] user (some kind of bussiness) can create an accout
 ###### [x] verified user can create their own working hours
 ###### [x] users can manage their schedules
-###### [ ] guest can book service from user for particular date
-###### [ ] users have to confirm reservation
-###### [ ] guest can cancel reservation
+###### [x] guest can book service from user for particular date
+###### [x] users have to confirm reservation
+###### [x] guest can cancel reservation
 
 #### API:
 #
 ### 1. User Controller
 ##### **Route**: https://localhost:44337/api/Users/{Method}
+
 ##### 1.1. Registering user [guest]
 */register [HttpPost]*
 **BODY:**
@@ -71,6 +72,7 @@
 #
 ### 2. ScheduleController
 ##### **Route**: https://localhost:44337/api/Schedule/{Method}
+
 #### 2.1. Create new schedule [users acces only]
 */Create [HttpPost]*
 **HEADERS:**
@@ -83,38 +85,38 @@ Key: id Vaule: {id of user}
 		[
 			{
 				"Day": "1",
-				"Opening": "8:00:00",
-				"Closeing": "18:00:00"
+				"Opening": {hh:mm:ss},
+				"Closeing": {hh:mm:ss}
 			},
 				{
 				"Day": "2",
-				"Opening": "8:00:00",
-				"Closeing": "18:00:00"
+				"Opening": {hh:mm:ss},
+				"Closeing": {hh:mm:ss}
 			},
 				{
 				"Day": "3",
-				"Opening": "8:00:00",
-				"Closeing": "18:00:00"
+				"Opening": {hh:mm:ss},
+				"Closeing": {hh:mm:ss}
 			},
 				{
 				"Day": "4",
-				"Opening": "8:00:00",
-				"Closeing": "18:00:00"
+				"Opening": {hh:mm:ss},
+				"Closeing": {hh:mm:ss}
 			},
 				{
 				"Day": "5",
-				"Opening": "10:00:00",
-				"Closeing": "16:00:00"
+				"Opening": {hh:mm:ss},
+				"Closeing": {hh:mm:ss}
 			},
 				{
 				"Day": "6",
-				"Opening": null,
-				"Closeing": null
+				"Opening": {hh:mm:ss},
+				"Closeing": {hh:mm:ss}
 			},
 				{
 				"Day": "0",
-				"Opening": null,
-				"Closeing": null
+				"Opening": {hh:mm:ss},
+				"Closeing": {hh:mm:ss}
 			}
 		]
 ```
@@ -142,3 +144,30 @@ Key: id Vaule: {id of user}
 		}
 	]
 ```
+
+#
+### 3. ReservationController
+##### **Route**: https://localhost:44337/api/Reservation/{Method}
+
+#### 3.1. Make reservation with given user [guest]
+*/{userId} [HttpPost]*
+
+**BODY:**
+```
+	{
+		"Date": {yyyy/mm/dd hh:mm:ss},
+		"DurationOFServiceMinutes": {time},
+		"ServiceType": {service type},
+		"OptionalDescription": {description / null},
+		"Confirmed": false
+	}
+```
+
+#### 3.2. Get all reservations with given user [users acces only]
+*/{userId} [HttpGet]*
+
+#### 3.3. Confirm reservation [users acces only]
+*/{reservationId} [HttpPut]*
+
+#### 3.4. Cancel reservation [guest]
+*/{reservationId} [HttpDelete]*
