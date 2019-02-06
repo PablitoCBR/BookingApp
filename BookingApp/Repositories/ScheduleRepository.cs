@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using BookingApp.Dtos.Schedules;
 using BookingApp.Interfaces.Repositories;
-using BookingApp.Contextes.Schedules;
+using BookingApp.Contextes;
 using BookingApp.Entities.Schedules;
 using System.Linq;
 

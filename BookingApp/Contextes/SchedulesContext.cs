@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using BookingApp.Entities.Schedules;
 
-namespace BookingApp.Contextes.Schedules
+namespace BookingApp.Contextes
 {
     public class ScheduleContext : DbContext
     {

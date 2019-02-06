@@ -15,16 +15,13 @@ using AutoMapper;
 
 using BookingApp.Interfaces.Services.Users;
 using BookingApp.Helpers;
-using BookingApp.Contextes.Users;
+using BookingApp.Contextes;
 using BookingApp.Services.Users;
 using BookingApp.Dtos.Users;
-using BookingApp.Contextes.Schedules;
 using BookingApp.Interfaces.Services.Schedules;
 using BookingApp.Services.Schedules;
 using BookingApp.Interfaces.Repositories;
 using BookingApp.Repositories;
-using BookingApp.Interfaces.Services.Reservations;
-using BookingApp.Services.Reservations;
 
 
 namespace BookingApp

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using BookingApp.Entities.Users;
 
-namespace BookingApp.Contextes.Users
+namespace BookingApp.Contextes
 {
     public class UserContext : DbContext
     {

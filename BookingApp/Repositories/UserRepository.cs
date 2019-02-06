@@ -1,6 +1,6 @@
 ﻿using BookingApp.Entities.Users;
 using BookingApp.Interfaces.Repositories;
-using BookingApp.Contextes.Users;
+using BookingApp.Contextes;
 using System.Linq;
 using System;
 

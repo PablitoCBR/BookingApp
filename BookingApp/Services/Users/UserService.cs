@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Threading.Tasks;
 using BookingApp.Interfaces.Services.Users;
 using BookingApp.Entities.Users;
-using BookingApp.Contextes.Users;
+using BookingApp.Contextes;
 using BookingApp.Helpers;
 using BookingApp.Interfaces.Repositories;
 using BookingApp.Dtos.Users;

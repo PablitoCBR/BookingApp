@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using BookingApp.Interfaces.Services.Reservations;
+using BookingApp.Interfaces.Services.Schedules;
 
 namespace BookingApp.Controllers
 {

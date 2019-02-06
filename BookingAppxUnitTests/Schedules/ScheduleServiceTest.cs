@@ -1,6 +1,6 @@
 ﻿using BookingApp.Dtos.Schedules;
 using Xunit;
-using BookingApp.Contextes.Schedules;
+using BookingApp.Contextes;
 using BookingApp.Interfaces.Services.Schedules;
 using BookingApp.Services.Schedules;
 using BookingApp.Repositories;
