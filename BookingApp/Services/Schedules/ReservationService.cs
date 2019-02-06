@@ -60,8 +60,8 @@ namespace BookingApp.Services.Schedules
             if (schedule == null)
                 throw new AppException("Schedule of company not found!");
 
-            if (reservation.Date.Hour < ((TimeSpan)schedule.Opening).Hours
-                || reservation.Date.Hour > ((TimeSpan)schedule.Closeing).Hours)
+            if (reservation.Date.Hour < ((TimeSpan)schedule.Opening).Hours || reservation.Date.Hour > ((TimeSpan)schedule.Closeing).Hours
+                || schedule.Opening == null || schedule.Closeing == null)
                 throw new AppException("Reservation date not match working hours");
 
             reservation.Confirmed = false;
