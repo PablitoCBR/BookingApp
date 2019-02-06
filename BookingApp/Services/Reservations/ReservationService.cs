@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BookingApp.Interfaces.Services.Reservations;
 
 namespace BookingApp.Services.Reservations
 {
-    public class ReservationService
+    public class ReservationService : IReservationService
     {
     }
 }
