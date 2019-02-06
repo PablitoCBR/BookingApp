@@ -9,10 +9,9 @@
 ###### [ ] guest can cancel reservation
 
 #### API:
-
+#
 ### 1. User Controller
 ##### **Route**: https://localhost:44337/api/Users/{Method}
-#
 ##### 1.1. Registering user [guest]
 */register [HttpPost]*
 **BODY:**
@@ -69,10 +68,9 @@
 ##### 1.6. Delete user with id=? [users acces only]
 */{id} [HttpDelete]*
 
-	
+#
 ### 2. ScheduleController
 ##### **Route**: https://localhost:44337/api/Schedule/{Method}
-#
 #### 2.1. Create new schedule [users acces only]
 */Create [HttpPost]*
 **HEADERS:**
@@ -80,40 +78,41 @@
 Key: id Vaule: {id of user}
 ```
 **BODY:** *(if closed on a given day set opening and closeing to **null**)*
+*Counting days from 0: Sunday to 6: Saturday ! *
 ```
 		[
 			{
-				"Day": "0",
-				"Opening": {hh:mm:ss},
-				"Closeing": {hh:mm:ss}
-			},
-				{
 				"Day": "1",
-				"Opening": {hh:mm:ss},
-				"Closeing": {hh:mm:ss}
+				"Opening": "8:00:00",
+				"Closeing": "18:00:00"
 			},
 				{
 				"Day": "2",
-				"Opening": {hh:mm:ss},
-				"Closeing": {hh:mm:ss}
+				"Opening": "8:00:00",
+				"Closeing": "18:00:00"
 			},
 				{
 				"Day": "3",
-				"Opening": {hh:mm:ss},
-				"Closeing": {hh:mm:ss}
+				"Opening": "8:00:00",
+				"Closeing": "18:00:00"
 			},
 				{
 				"Day": "4",
-				"Opening": {hh:mm:ss},
-				"Closeing": {hh:mm:ss}
+				"Opening": "8:00:00",
+				"Closeing": "18:00:00"
 			},
 				{
 				"Day": "5",
-				"Opening": {hh:mm:ss},
-				"Closeing": {hh:mm:ss}
+				"Opening": "10:00:00",
+				"Closeing": "16:00:00"
 			},
 				{
 				"Day": "6",
+				"Opening": null,
+				"Closeing": null
+			},
+				{
+				"Day": "0",
 				"Opening": null,
 				"Closeing": null
 			}

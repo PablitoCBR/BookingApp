@@ -11,5 +11,6 @@ namespace BookingApp.Interfaces.Repositories
         List<Schedule> Get(int userId);
         void Remove(int UserId);
         void Update(int userId, List<ScheduleDto> schedules);
+        Schedule GetDaySchedule(int userId, int day);
     }
 }

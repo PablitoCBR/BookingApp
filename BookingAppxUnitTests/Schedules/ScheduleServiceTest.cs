@@ -22,7 +22,7 @@ namespace BookingAppxUnitTests.Schedules
         private readonly DbContextOptions<ScheduleContext> _scheduleOptions;
         public ScheduleServiceTest()
         {
-            weekSchedule.Add(new ScheduleDto() { Day = 0, Opening = new TimeSpan(8, 0, 0), Closeing = new TimeSpan(18, 0, 0) });
+            weekSchedule.Add(new ScheduleDto() { Day = 0, Opening = null, Closeing = null });
             weekSchedule.Add(new ScheduleDto() { Day = 1, Opening = new TimeSpan(8, 0, 0), Closeing = new TimeSpan(18, 0, 0) });
             weekSchedule.Add(new ScheduleDto() { Day = 2, Opening = new TimeSpan(8, 0, 0), Closeing = new TimeSpan(18, 0, 0) });
             weekSchedule.Add(new ScheduleDto() { Day = 3, Opening = new TimeSpan(8, 0, 0), Closeing = new TimeSpan(18, 0, 0) });

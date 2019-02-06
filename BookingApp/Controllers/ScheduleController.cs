@@ -26,12 +26,12 @@ namespace BookingApp.Controllers
             try
             {
                 _scheduleService.AddSchedule(id, schedules);
+                return Ok();
             }
             catch (AppException ex)
             {
                 return BadRequest(new { message = ex.Message });
-            }
-            return Ok();
+            }         
         }
 
         [AllowAnonymous]

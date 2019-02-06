@@ -41,6 +41,11 @@ namespace BookingApp.Repositories
             return _scheduleContext.Schedules.Where(x => x.UserId == userId).ToList();
         }
 
+        public Schedule GetDaySchedule(int userId, int day)
+        {
+            return _scheduleContext.Schedules.SingleOrDefault(x => x.UserId == userId && x.Day == day);
+        }
+
         public void Remove(int userId)
         {
             _scheduleContext.Schedules.RemoveRange(
