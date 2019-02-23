@@ -1,7 +1,7 @@
 # BookingApp RESTful API
 WebAPI  for application providing service for users that can create account for customer or business and as business you can publish your offer and as customer you are able to make a reservation for service. 
 
-##  Task:
+##  Tasks:
 - [x] Account creating and authentication system
 - [x] User account
 - [ ] Add roles
@@ -13,7 +13,7 @@ WebAPI  for application providing service for users that can create account for 
 #### API:
 #
 ### 1. User Controller
-##### **Route**: https://localhost:44337/api/Users/{Method}
+##### **Route**: https://localhost:44337/api/User/{Method}
 
 ##### 1.1. Registering user [guest]
 */register [HttpPost]*
