@@ -1,76 +1,42 @@
-﻿using BookingApp.Entities.Users;
-using BookingApp.Interfaces.Repositories;
+﻿using BookingApp.Interfaces.Repositories;
+using BookingApp.Entities.Accounts;
 using BookingApp.Contextes;
 using System.Linq;
-using System;
 
 namespace BookingApp.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly UserContext _userContext;
-        
-        public UserRepository(UserContext context)
+        private readonly AccountsContext _context;
+
+        public UserRepository(AccountsContext context)
         {
-            _userContext = context;
-        }
-        public void Add(User user)
-        {
-            _userContext.Users.Add(user);
-            _userContext.SaveChanges();
+            _context = context;
         }
 
-        public bool CheckIfExistById(int id)
+        public void Add(User data)
         {
-            return _userContext.Users.Any(x => x.Id == id);
+            _context.Users.Add(data as User);
+            _context.SaveChanges();
         }
 
-        public bool CheckIfExistByUsername(string username)
+        public void Remove(User data)
         {
-            return _userContext.Users.Any(x => x.Username == username);
+            _context.Users.Remove(data as User);
+            _context.SaveChanges();
         }
 
-     
-        public User GetById(int id)
+        public void Update(User data)
         {
-            User user = _userContext.Users.Find(id);
-            if (user == null)
-                throw new NullReferenceException();
-
-            user.Address = GetAdrressById(user.AddressId);
-            return user;
+            _context.Users.Update(data as User);
+            _context.SaveChanges();
         }
 
-        public User GetByUsername(string username)
-        {
-            User user = _userContext.Users.SingleOrDefault(x => x.Username == username);
-            if (user == null)
-                throw new NullReferenceException();
+        public User Get(int id) => _context.Users.SingleOrDefault(x => x.Id == id);
 
-            user.Address = GetAdrressById(user.AddressId);
-            return user;
-        }
+        public User Get(string email) => _context.Users.SingleOrDefault(x => x.Email == email);
 
-        public void Remove(User user)
-        {
-            _userContext.Addresses.Remove(user.Address);
-            _userContext.Users.Remove(user);
-            _userContext.SaveChanges();
-        }
+        public bool CheckIfExist(string email) => _context.Users.Any(x => x.Email == email);
 
-        public void Update(User user)
-        {
-            _userContext.Users.Update(user);
-            _userContext.SaveChanges();
-        }
-        public void RemoveAddress(Address address)
-        {
-            _userContext.Addresses.Remove(address);
-        }
-
-        private Address GetAdrressById(int id)
-        {
-            return _userContext.Addresses.SingleOrDefault(x => x.Id == id);
-        }
     }
 }

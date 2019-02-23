@@ -1,8 +1,7 @@
 ﻿using AutoMapper;
-using BookingApp.Dtos.Users;
-using BookingApp.Entities.Users;
-using BookingApp.Entities.Schedules;
-using BookingApp.Dtos.Schedules;
+using BookingApp.Dtos.Accounts;
+using BookingApp.Entities.Accounts;
+
 
 namespace BookingApp.Helpers
 {
@@ -13,14 +12,6 @@ namespace BookingApp.Helpers
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
 
-            CreateMap<Address, AddressDto>();
-            CreateMap<AddressDto, Address>();
-
-            CreateMap<Schedule, ScheduleDto>();
-            CreateMap<ScheduleDto, Schedule>();
-
-            CreateMap<Reservation, ReservationDto>();
-            CreateMap<ReservationDto, Reservation>();
         }
     }
 }
