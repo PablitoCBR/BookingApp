@@ -4,12 +4,12 @@ namespace BookingApp.Exceptions
 {
     public class PasswordHandlerException : Exception
     {
-        public DateTime Time { get; set; }
+        public DateTime Date { get; set; }
         public string ParamName { get; set; }
-        public PasswordHandlerException(string paramName, DateTime time, string message) 
+        public PasswordHandlerException(string paramName, DateTime date, string message) 
             : base(message)
         {
-            Time = time;
+            Date = date;
             ParamName = paramName;
         }        
     }
