@@ -43,6 +43,7 @@ WebAPI  for application providing service for users that can create account for 
 ```	
 	{
 	 "Email" = {username},
+	 "Username" = {username},
 	 "Password" = {password},
 	 "Name" = {name},
 	 "Surname" = {surname}
@@ -54,4 +55,3 @@ WebAPI  for application providing service for users that can create account for 
 
 ##### 1.5. Delete user with given id [users acces only (account owner)]
 */{id} [HttpDelete]*
-
