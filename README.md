@@ -45,7 +45,8 @@
 ##### 1.3. Update user data [users acces only]
 */{id} [HttpPut]*
 **BODY:**
-```	{
+```	
+	{
 	 "Username" = {username},
 	 "Password" = {password},
 	 "BusinessName" = {businessName},
