@@ -10,7 +10,7 @@ using System;
 
 namespace BookingApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = Role.User)]
     [ApiController]
     [Route("api/[controller]")]
     public class UserController : Controller
@@ -35,7 +35,7 @@ namespace BookingApp.Controllers
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect!" });
 
-            string token = _jwtProvider.GetJWT(user.Id);
+            string token = _jwtProvider.GetJWT(user.Id, Role.User);
 
             return Ok(new
             {

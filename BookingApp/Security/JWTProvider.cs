@@ -1,4 +1,5 @@
 ﻿using BookingApp.Helpers;
+using BookingApp.Entities.Accounts;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -16,7 +17,7 @@ namespace BookingApp.Security
             _appSettings = appSettings.Value;
         }
 
-        public string GetJWT(int id)
+        public string GetJWT(int id, string role)
         {
             JwtSecurityTokenHandler tokenHanlder = new JwtSecurityTokenHandler();
             byte[] key = Encoding.ASCII.GetBytes(_appSettings.Secret);
@@ -24,7 +25,8 @@ namespace BookingApp.Security
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, id.ToString())
+                    new Claim(ClaimTypes.Name, id.ToString()),
+                    new Claim(ClaimTypes.Role, role)
                 }),
                 Expires = DateTime.UtcNow.AddDays(1),
                 SigningCredentials = new SigningCredentials(

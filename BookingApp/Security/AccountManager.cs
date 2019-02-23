@@ -1,5 +1,4 @@
-﻿using BookingApp.Interfaces.Services.Accounts;
-using BookingApp.Interfaces.Repositories;
+﻿using BookingApp.Interfaces.Repositories;
 using BookingApp.Exceptions;
 using BookingApp.Interfaces.Security;
 using BookingApp.Entities.Accounts;
@@ -61,7 +60,7 @@ namespace BookingApp.Security
             }
         }
 
-        public void Update(T user, IRepository<T> repository, string password = null)
+        public void Update(T user, IRepository<T> repository,string password = null)
         {
             if (!string.IsNullOrWhiteSpace(password))
             {

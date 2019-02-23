@@ -22,8 +22,8 @@ using BookingApp.Security;
 using BookingApp.Repositories;
 using BookingApp.Interfaces.Repositories;
 using BookingApp.Interfaces.Security;
-
-
+using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace BookingApp
 {
@@ -91,7 +91,7 @@ namespace BookingApp
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IServiceProvider serviceProvider)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -116,7 +116,6 @@ namespace BookingApp
             app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
-            
         }
     }
 }

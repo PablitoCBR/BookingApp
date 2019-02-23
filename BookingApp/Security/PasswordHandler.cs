@@ -1,5 +1,5 @@
 ﻿using System;
-using BookingApp.Interfaces.Services.Accounts;
+using BookingApp.Interfaces.Security;
 using BookingApp.Exceptions;
 
 namespace BookingApp.Security

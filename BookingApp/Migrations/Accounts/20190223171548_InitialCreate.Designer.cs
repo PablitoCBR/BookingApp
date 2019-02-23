@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingApp.Migrations.Accounts
 {
     [DbContext(typeof(AccountsContext))]
-    [Migration("20190221162153_InitialCreate")]
+    [Migration("20190223171548_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
