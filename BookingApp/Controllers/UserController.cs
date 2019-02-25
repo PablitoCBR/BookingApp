@@ -72,7 +72,7 @@ namespace BookingApp.Controllers
 
             try
             {
-                UserDto user = _userService.GetById(id);
+                UserDto user = _userService.Get(id);
                 return Ok(user);
             }
             catch(ValidationException ex)

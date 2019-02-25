@@ -31,7 +31,7 @@ namespace BookingApp.Services.Accounts
             return _accountManager.Authenticate(email, password, _userRepository);     
         }
 
-        public UserDto GetById(int id)
+        public UserDto Get(int id)
         {
             User user = _userRepository.Get(id);
 

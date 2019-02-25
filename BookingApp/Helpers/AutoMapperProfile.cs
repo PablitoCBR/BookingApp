@@ -12,6 +12,11 @@ namespace BookingApp.Helpers
             CreateMap<User, UserDto>();
             CreateMap<UserDto, User>();
 
+            CreateMap<Business, BusinessDto>();
+            CreateMap<BusinessDto, Business>();
+
+            CreateMap<Address, AddressDto>();
+            CreateMap<AddressDto, Address>();
         }
     }
 }
