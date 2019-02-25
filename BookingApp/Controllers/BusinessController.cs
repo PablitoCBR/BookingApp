@@ -28,14 +28,14 @@ namespace BookingApp.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]BusinessDto bussines)
         {
-
+            throw new System.NotImplementedException();
         }
 
         [AllowAnonymous]
         [HttpPost("register")]
         public IActionResult Register([FromBody]BusinessDto business)
         {
-
+            throw new System.NotImplementedException();
         }
 
 
