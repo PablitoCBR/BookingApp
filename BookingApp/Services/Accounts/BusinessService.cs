@@ -27,11 +27,6 @@ namespace BookingApp.Services.Accounts
             throw new System.NotImplementedException();
         }
 
-        public ICollection<string> Get(string companyName)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public void Update(Business businessm, string password = null)
         {
             throw new System.NotImplementedException();

@@ -116,19 +116,5 @@ namespace BookingApp.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
-
-        [AllowAnonymous]
-        [HttpGet("search/{companyName}")]
-        public IActionResult Search(string companyName)
-        {
-            try
-            {
-                return Ok(_businessService.Get(companyName));
-            }
-            catch(FormatException ex)
-            {
-                return BadRequest(new { message = ex.Message });
-            }
-        }
     }
 }
