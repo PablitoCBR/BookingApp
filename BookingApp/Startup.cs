@@ -63,7 +63,7 @@ namespace BookingApp
                     {
                         IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
                         int userId = int.Parse(context.Principal.Identity.Name);
-                        UserDto user = userService.GetById(userId);
+                        UserDto user = userService.Get(userId);
                         if (user == null)
                             context.Fail("Unauthorized");
                         return Task.CompletedTask;

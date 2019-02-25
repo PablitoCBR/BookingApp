@@ -30,7 +30,7 @@ namespace BookingApp.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody] UserDto userDto)
         {
-            var user = _userService.Authenticate(userDto.Email, userDto.Password);
+            User user = _userService.Authenticate(userDto.Email, userDto.Password);
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect!" });
@@ -51,7 +51,7 @@ namespace BookingApp.Controllers
         [HttpPost("register")]
         public IActionResult Register([FromBody]UserDto userDto)
         {
-            var user = _mapper.Map<User>(userDto);
+            User user = _mapper.Map<User>(userDto);
 
             try
             {
@@ -87,7 +87,7 @@ namespace BookingApp.Controllers
             if (Convert.ToInt32(User.Identity.Name) != id)
                 return Unauthorized();
 
-            var user = _mapper.Map<User>(userDto);
+            User user = _mapper.Map<User>(userDto);
             user.Id = id;
 
             try
