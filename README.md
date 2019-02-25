@@ -4,7 +4,7 @@ WebAPI  for application providing service for users that can create account for 
 ##  Tasks:
 - [x] Account creating and authentication system
 - [x] User account
-- [ ] Add roles
+- [x] Add roles
 - [ ] Business account
 - [ ] Adding schedule for businesses
 - [ ] Adding offers(generalized task)
