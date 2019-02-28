@@ -73,7 +73,7 @@ namespace BookingAppxUnitTests.Accounts
         public void Update()
         {
             var repositoryMock = new Mock<IUserRepository>();
-            repositoryMock.Setup(x => x.Get(1)).Returns(new User() { Id = 1, Email = "e@gmail.comn"});
+            repositoryMock.Setup(x => x.Get(1)).Returns(new User() { Id = 1, Email = "e@gmail.com"});
             repositoryMock.Setup(x => x.CheckIfExist(user.Email)).Returns(true);
             var accountManagerMock = new Mock<IAccountManager<User>>();
             accountManagerMock.Setup(x => x.Update(user, repositoryMock.Object, null));
