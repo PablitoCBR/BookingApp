@@ -13,16 +13,16 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
-using BookingApp.Interfaces.Services.Users;
+using BookingApp.Interfaces.Services.Accounts;
 using BookingApp.Helpers;
 using BookingApp.Contextes;
-using BookingApp.Services.Users;
-using BookingApp.Dtos.Users;
-using BookingApp.Interfaces.Services.Schedules;
-using BookingApp.Services.Schedules;
-using BookingApp.Interfaces.Repositories;
+using BookingApp.Services.Accounts;
+using BookingApp.Dtos.Accounts;
+using BookingApp.Security;
 using BookingApp.Repositories;
-
+using BookingApp.Interfaces.Repositories;
+using BookingApp.Interfaces.Security;
+using BookingApp.Entities.Accounts;
 
 namespace BookingApp
 {
@@ -42,9 +42,8 @@ namespace BookingApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
 
-            services.AddDbContext<UserContext>(options => options.UseSqlite(Configuration.GetConnectionString("UsersDbContext")));
-            services.AddDbContext<ScheduleContext>(options => options.UseSqlite(Configuration.GetConnectionString("ScheduleDbContext")));
-
+            services.AddDbContext<AccountsContext>(options => options.UseSqlite(Configuration.GetConnectionString("AccountsDbContext")));
+           
             // configure strongly typed settings objects
             IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
@@ -63,12 +62,24 @@ namespace BookingApp
                 {
                     OnTokenValidated = context =>
                     {
-                        IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                        int userId = int.Parse(context.Principal.Identity.Name);
-                        UserDto user = userService.GetById(userId);
-                        if (user == null)
-                            context.Fail("Unauthorized");
-                        return Task.CompletedTask;
+                        if(context.Principal.HasClaim(c => c.Value == Role.User))
+                        {
+                            IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
+                            int userId = int.Parse(context.Principal.Identity.Name);
+                            UserDto user = userService.Get(userId);
+                            if (user == null)
+                                context.Fail("Unauthorized");
+                            return Task.CompletedTask;
+                        }
+                        else
+                        {
+                            IBusinessService businessService = context.HttpContext.RequestServices.GetRequiredService<IBusinessService>();
+                            int userId = int.Parse(context.Principal.Identity.Name);
+                            BusinessDto business = businessService.Get(userId);
+                            if (business == null)
+                                context.Fail("Unauthorized");
+                            return Task.CompletedTask;
+                        }
                     }
                 };
                 x.RequireHttpsMetadata = false;
@@ -83,14 +94,14 @@ namespace BookingApp
             });
 
             //DI for app services
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IPasswordHandler, PasswordHandler>();
-            services.AddSingleton<IUserDataValidator, UserDataValidator>();
-            services.AddScoped<IScheduleRepository, ScheduleRepository>();
-            services.AddScoped<IScheduleService, ScheduleService>();
-            services.AddScoped<IReservationRepository, ReservationRepository>();
-            services.AddScoped<IReservationService, ReservationService>();
+            services.AddSingleton<JWTProvider>();
+            services.AddScoped(typeof(IAccountManager<>), typeof(AccountManager<>));
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<AddressValidator>();
+            services.AddScoped<IBusinessRepository, BusinessRepository>();
+            services.AddScoped<IBusinessService, BusinessService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
