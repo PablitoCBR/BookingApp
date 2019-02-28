@@ -30,6 +30,7 @@ namespace BookingApp.Controllers
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]BusinessDto businesDto)
         {
+<<<<<<< HEAD
             Business business = _businessService.Authenticate(businesDto.Email, businesDto.Password);
 
             if (business == null)
@@ -45,6 +46,9 @@ namespace BookingApp.Controllers
                 business.Address,
                 token
             });
+=======
+            throw new System.NotImplementedException();
+>>>>>>> USerServiceTest
         }
 
         [AllowAnonymous]
@@ -83,6 +87,7 @@ namespace BookingApp.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody]BusinessDto businessDto)
         {
+<<<<<<< HEAD
             if (Convert.ToInt32(User.Identity.Name) != id)
                 return Unauthorized();
 
@@ -98,6 +103,9 @@ namespace BookingApp.Controllers
             {
                 return BadRequest(new { message = ex.Message });
             }
+=======
+            throw new System.NotImplementedException();
+>>>>>>> USerServiceTest
         }
 
         [HttpDelete("{id}")]
