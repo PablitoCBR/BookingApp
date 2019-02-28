@@ -62,7 +62,6 @@ namespace BookingApp
                 {
                     OnTokenValidated = context =>
                     {
-<<<<<<< HEAD
                         if(context.Principal.HasClaim(c => c.Value == Role.User))
                         {
                             IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
@@ -81,14 +80,6 @@ namespace BookingApp
                                 context.Fail("Unauthorized");
                             return Task.CompletedTask;
                         }
-=======
-                        IUserService userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
-                        int userId = int.Parse(context.Principal.Identity.Name);
-                        UserDto user = userService.Get(userId);
-                        if (user == null)
-                            context.Fail("Unauthorized");
-                        return Task.CompletedTask;
->>>>>>> USerServiceTest
                     }
                 };
                 x.RequireHttpsMetadata = false;
