@@ -16,19 +16,19 @@ namespace BookingApp.Repositories
 
         public void Add(User data)
         {
-            _context.Users.Add(data as User);
+            _context.Users.Add(data);
             _context.SaveChanges();
         }
 
         public void Remove(User data)
         {
-            _context.Users.Remove(data as User);
+            _context.Users.Remove(data);
             _context.SaveChanges();
         }
 
         public void Update(User data)
         {
-            _context.Users.Update(data as User);
+            _context.Users.Update(data);
             _context.SaveChanges();
         }
 
