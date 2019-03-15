@@ -2,7 +2,7 @@
 
 namespace BookingApp.Interfaces.Repositories
 {
-    public interface IUserRepository : IRepository<User>
+    public interface IUserRepository : IAccountRepository<User>
     {
         bool CheckIfExist(string email);
     }

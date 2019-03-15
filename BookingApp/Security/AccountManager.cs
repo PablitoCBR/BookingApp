@@ -18,7 +18,7 @@ namespace BookingApp.Security
             _loggerFactory = loggerFactory;
         }
 
-        public void CreateUser(T user, string password, IRepository<T> repository)
+        public void CreateUser(T user, string password, IAccountRepository<T> repository)
         {
             byte[] passwordHash, passwordSalt;
             try
@@ -35,7 +35,7 @@ namespace BookingApp.Security
             repository.Add(user);                
         }
 
-        public T Authenticate(string email, string password, IRepository<T> repository)
+        public T Authenticate(string email, string password, IAccountRepository<T> repository)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace BookingApp.Security
             }
         }
 
-        public void Update(T user, IRepository<T> repository,string password = null)
+        public void Update(T user, IAccountRepository<T> repository,string password = null)
         {
             if (!string.IsNullOrWhiteSpace(password))
             {
