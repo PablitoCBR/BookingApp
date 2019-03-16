@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using BookingApp.Entities.Schedule;
+using BookingApp.Entities.Schedules;
 
 namespace BookingApp.Contextes
 {

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace BookingApp.Entities.Schedule
+namespace BookingApp.Entities.Schedules
 {
     [Owned]
     [ComplexType]

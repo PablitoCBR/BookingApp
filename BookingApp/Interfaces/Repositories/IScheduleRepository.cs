@@ -1,6 +1,9 @@
-﻿namespace BookingApp.Interfaces.Repositories
+﻿using BookingApp.Entities.Schedules;
+
+namespace BookingApp.Interfaces.Repositories
 {
-    public class IScheduleRepository
+    public interface IScheduleRepository : IRepository<Schedule>
     {
+        bool CheckIfExist(int id);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace BookingApp.Entities.Schedule
+namespace BookingApp.Entities.Schedules
 {
     public class Schedule
     {

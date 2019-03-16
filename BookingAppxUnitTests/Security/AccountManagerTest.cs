@@ -17,7 +17,7 @@ namespace BookingAppxUnitTests.Security
         [Fact]
         public void Create()
         {
-            var repositoryMock = new Mock<IRepository<Account>>();
+            var repositoryMock = new Mock<IAccountRepository<Account>>();
             AccountManager<Account> accountManager = new AccountManager<Account>(passwordHandler, new LoggerFactory());
 
             accountManager.CreateUser(account, password, repositoryMock.Object);
@@ -31,7 +31,7 @@ namespace BookingAppxUnitTests.Security
         {
             byte[] passwordHash, passwordSalt;
             passwordHandler.CreatePasswordHash(password, out passwordHash, out passwordSalt);
-            var repositoryMock = new Mock<IRepository<Account>>();
+            var repositoryMock = new Mock<IAccountRepository<Account>>();
             repositoryMock.Setup(x => x.Get(account.Email)).Returns(new Account() { PasswordHash = passwordHash, PasswordSalt = passwordSalt});
             AccountManager<Account> accountManager = new AccountManager<Account>(passwordHandler, new LoggerFactory());        
 
@@ -42,7 +42,7 @@ namespace BookingAppxUnitTests.Security
         [Fact]
         public void Update()
         {
-            var repositoryMock = new Mock<IRepository<Account>>();
+            var repositoryMock = new Mock<IAccountRepository<Account>>();
             AccountManager<Account> accountManager = new AccountManager<Account>(passwordHandler, new LoggerFactory());
 
             accountManager.Update(account, repositoryMock.Object, password);
