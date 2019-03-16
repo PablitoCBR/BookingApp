@@ -10,7 +10,7 @@ using BookingApp.Interfaces.Repositories;
 using BookingApp.Dtos.Accounts;
 using BookingApp.Exceptions;
 
-namespace BookingAppxUnitTests.Accounts
+namespace BookingAppxTests.Accounts
 {
     public class UserServiceTest
     {
