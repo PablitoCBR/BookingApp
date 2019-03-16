@@ -8,8 +8,8 @@ namespace BookingApp.Entities.Schedules
     [ComplexType]
     public class Time : IComparable<Time>
     {
-        public int Hours { get; set; }
-        public int Minutes { get; set; }
+        public int? Hours { get; set; }
+        public int? Minutes { get; set; }
 
         public int CompareTo(Time time)
         {

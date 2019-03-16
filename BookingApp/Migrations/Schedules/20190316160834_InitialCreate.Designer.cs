@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingApp.Migrations.Schedules
 {
     [DbContext(typeof(SchedulesContext))]
-    [Migration("20190314181335_InitialCreate")]
+    [Migration("20190316160834_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -17,7 +17,7 @@ namespace BookingApp.Migrations.Schedules
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
 
-            modelBuilder.Entity("BookingApp.Entities.Schedule.Schedule", b =>
+            modelBuilder.Entity("BookingApp.Entities.Schedules.Schedule", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -29,20 +29,20 @@ namespace BookingApp.Migrations.Schedules
                     b.ToTable("Schedules");
                 });
 
-            modelBuilder.Entity("BookingApp.Entities.Schedule.Schedule", b =>
+            modelBuilder.Entity("BookingApp.Entities.Schedules.Schedule", b =>
                 {
-                    b.OwnsOne("BookingApp.Entities.Schedule.WorkingHours", "Friday", b1 =>
+                    b.OwnsOne("BookingApp.Entities.Schedules.WorkingHours", "Friday", b1 =>
                         {
                             b1.Property<int>("ScheduleId");
 
                             b1.ToTable("Schedules");
 
-                            b1.HasOne("BookingApp.Entities.Schedule.Schedule")
+                            b1.HasOne("BookingApp.Entities.Schedules.Schedule")
                                 .WithOne("Friday")
-                                .HasForeignKey("BookingApp.Entities.Schedule.WorkingHours", "ScheduleId")
+                                .HasForeignKey("BookingApp.Entities.Schedules.WorkingHours", "ScheduleId")
                                 .OnDelete(DeleteBehavior.Cascade);
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Closeing", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Closeing", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -52,13 +52,13 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Closeing")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Opening", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Opening", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -68,25 +68,25 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Opening")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
                         });
 
-                    b.OwnsOne("BookingApp.Entities.Schedule.WorkingHours", "Monday", b1 =>
+                    b.OwnsOne("BookingApp.Entities.Schedules.WorkingHours", "Monday", b1 =>
                         {
                             b1.Property<int>("ScheduleId");
 
                             b1.ToTable("Schedules");
 
-                            b1.HasOne("BookingApp.Entities.Schedule.Schedule")
+                            b1.HasOne("BookingApp.Entities.Schedules.Schedule")
                                 .WithOne("Monday")
-                                .HasForeignKey("BookingApp.Entities.Schedule.WorkingHours", "ScheduleId")
+                                .HasForeignKey("BookingApp.Entities.Schedules.WorkingHours", "ScheduleId")
                                 .OnDelete(DeleteBehavior.Cascade);
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Closeing", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Closeing", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -96,13 +96,13 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Closeing")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Opening", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Opening", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -112,25 +112,25 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Opening")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
                         });
 
-                    b.OwnsOne("BookingApp.Entities.Schedule.WorkingHours", "Saturday", b1 =>
+                    b.OwnsOne("BookingApp.Entities.Schedules.WorkingHours", "Saturday", b1 =>
                         {
                             b1.Property<int>("ScheduleId");
 
                             b1.ToTable("Schedules");
 
-                            b1.HasOne("BookingApp.Entities.Schedule.Schedule")
+                            b1.HasOne("BookingApp.Entities.Schedules.Schedule")
                                 .WithOne("Saturday")
-                                .HasForeignKey("BookingApp.Entities.Schedule.WorkingHours", "ScheduleId")
+                                .HasForeignKey("BookingApp.Entities.Schedules.WorkingHours", "ScheduleId")
                                 .OnDelete(DeleteBehavior.Cascade);
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Closeing", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Closeing", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -140,13 +140,13 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Closeing")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Opening", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Opening", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -156,25 +156,25 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Opening")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
                         });
 
-                    b.OwnsOne("BookingApp.Entities.Schedule.WorkingHours", "Sunday", b1 =>
+                    b.OwnsOne("BookingApp.Entities.Schedules.WorkingHours", "Sunday", b1 =>
                         {
                             b1.Property<int>("ScheduleId");
 
                             b1.ToTable("Schedules");
 
-                            b1.HasOne("BookingApp.Entities.Schedule.Schedule")
+                            b1.HasOne("BookingApp.Entities.Schedules.Schedule")
                                 .WithOne("Sunday")
-                                .HasForeignKey("BookingApp.Entities.Schedule.WorkingHours", "ScheduleId")
+                                .HasForeignKey("BookingApp.Entities.Schedules.WorkingHours", "ScheduleId")
                                 .OnDelete(DeleteBehavior.Cascade);
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Closeing", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Closeing", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -184,13 +184,13 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Closeing")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Opening", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Opening", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -200,25 +200,25 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Opening")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
                         });
 
-                    b.OwnsOne("BookingApp.Entities.Schedule.WorkingHours", "Thursday", b1 =>
+                    b.OwnsOne("BookingApp.Entities.Schedules.WorkingHours", "Thursday", b1 =>
                         {
                             b1.Property<int>("ScheduleId");
 
                             b1.ToTable("Schedules");
 
-                            b1.HasOne("BookingApp.Entities.Schedule.Schedule")
+                            b1.HasOne("BookingApp.Entities.Schedules.Schedule")
                                 .WithOne("Thursday")
-                                .HasForeignKey("BookingApp.Entities.Schedule.WorkingHours", "ScheduleId")
+                                .HasForeignKey("BookingApp.Entities.Schedules.WorkingHours", "ScheduleId")
                                 .OnDelete(DeleteBehavior.Cascade);
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Closeing", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Closeing", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -228,13 +228,13 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Closeing")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Opening", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Opening", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -244,25 +244,25 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Opening")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
                         });
 
-                    b.OwnsOne("BookingApp.Entities.Schedule.WorkingHours", "Tuesday", b1 =>
+                    b.OwnsOne("BookingApp.Entities.Schedules.WorkingHours", "Tuesday", b1 =>
                         {
                             b1.Property<int>("ScheduleId");
 
                             b1.ToTable("Schedules");
 
-                            b1.HasOne("BookingApp.Entities.Schedule.Schedule")
+                            b1.HasOne("BookingApp.Entities.Schedules.Schedule")
                                 .WithOne("Tuesday")
-                                .HasForeignKey("BookingApp.Entities.Schedule.WorkingHours", "ScheduleId")
+                                .HasForeignKey("BookingApp.Entities.Schedules.WorkingHours", "ScheduleId")
                                 .OnDelete(DeleteBehavior.Cascade);
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Closeing", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Closeing", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -272,13 +272,13 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Closeing")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Opening", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Opening", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -288,25 +288,25 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Opening")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
                         });
 
-                    b.OwnsOne("BookingApp.Entities.Schedule.WorkingHours", "Wednesday", b1 =>
+                    b.OwnsOne("BookingApp.Entities.Schedules.WorkingHours", "Wednesday", b1 =>
                         {
                             b1.Property<int>("ScheduleId");
 
                             b1.ToTable("Schedules");
 
-                            b1.HasOne("BookingApp.Entities.Schedule.Schedule")
+                            b1.HasOne("BookingApp.Entities.Schedules.Schedule")
                                 .WithOne("Wednesday")
-                                .HasForeignKey("BookingApp.Entities.Schedule.WorkingHours", "ScheduleId")
+                                .HasForeignKey("BookingApp.Entities.Schedules.WorkingHours", "ScheduleId")
                                 .OnDelete(DeleteBehavior.Cascade);
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Closeing", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Closeing", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -316,13 +316,13 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Closeing")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
 
-                            b1.OwnsOne("BookingApp.Entities.Schedule.Time", "Opening", b2 =>
+                            b1.OwnsOne("BookingApp.Entities.Schedules.Time", "Opening", b2 =>
                                 {
                                     b2.Property<int>("WorkingHoursScheduleId");
 
@@ -332,9 +332,9 @@ namespace BookingApp.Migrations.Schedules
 
                                     b2.ToTable("Schedules");
 
-                                    b2.HasOne("BookingApp.Entities.Schedule.WorkingHours")
+                                    b2.HasOne("BookingApp.Entities.Schedules.WorkingHours")
                                         .WithOne("Opening")
-                                        .HasForeignKey("BookingApp.Entities.Schedule.Time", "WorkingHoursScheduleId")
+                                        .HasForeignKey("BookingApp.Entities.Schedules.Time", "WorkingHoursScheduleId")
                                         .OnDelete(DeleteBehavior.Cascade);
                                 });
                         });

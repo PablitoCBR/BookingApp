@@ -32,8 +32,8 @@ namespace BookingApp.Repositories
             _context.SaveChanges();
         }
 
-        public bool CheckIfExist(int id) => _context.Schedules.Any(x => x.Id == id);
+        public bool CheckIfExist(int id) => _context.Schedules.Any(x => x.BusinessId == id);
 
-        public Schedule Get(int id) => _context.Schedules.SingleOrDefault(x => x.Id == id);
+        public Schedule Get(int id) => _context.Schedules.SingleOrDefault(x => x.BusinessId == id);
     }
 }

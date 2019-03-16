@@ -13,7 +13,7 @@ WebAPI  for application providing service for users that can create account for 
 #### API:
 #
 ### 1. User Controller
-##### **Route**: https://localhost:44337/api/Users/{Method}
+##### **Route**: https://localhost:33224/api/Users/{Method}
 
 ##### 1.1. Registering user [guest]
 */register [HttpPost]*
@@ -59,7 +59,7 @@ WebAPI  for application providing service for users that can create account for 
 <hr>
 
 ### 2. Business Controller
-##### **Route**: https://localhost:44337/api/Business/{Method}
+##### **Route**: https://localhost:33224/api/Business/{Method}
 
 ##### 1.1. Registering business [guest]
 */register [HttpPost]*
