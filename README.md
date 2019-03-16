@@ -6,7 +6,7 @@ WebAPI  for application providing service for users that can create account for 
 - [x] User account
 - [x] Add roles
 - [x] Business account
-- [ ] Adding schedule for businesses
+- [x] Adding schedule for businesses
 - [ ] Adding offers(generalized task)
 - [ ] reservations (generalzied task)
 
@@ -61,7 +61,7 @@ WebAPI  for application providing service for users that can create account for 
 ### 2. Business Controller
 ##### **Route**: https://localhost:33224/api/Business/{Method}
 
-##### 1.1. Registering business [guest]
+##### 2.1. Registering business [guest]
 */register [HttpPost]*
 **BODY:**
 ```
@@ -80,7 +80,7 @@ WebAPI  for application providing service for users that can create account for 
 	}
 ```
 
-##### 1.2. Verifying registered business [guest]
+##### 2.2. Verifying registered business [guest]
 */authenticate [HttpPost]*
 **BODY:**
 ```
@@ -90,7 +90,7 @@ WebAPI  for application providing service for users that can create account for 
 	}
 ```
 
-##### 1.3. Update business data with given id [users access only (account owner)]
+##### 2.3. Update business data with given id [users access only (account owner)]
 */{id} [HttpPut]*
 **BODY:**
 ```	
@@ -109,8 +109,180 @@ WebAPI  for application providing service for users that can create account for 
 	}
 ```
 
-##### 1.4. Get business with given id [users acces only (account owner)]
+##### 2.4. Get business with given id [users acces only (account owner)]
 */{id} [HttpGet]*
 
-##### 1.5. Delete business with given id [users acces only (account owner)]
+##### 2.5. Delete business with given id [users acces only (account owner)]
 */{id} [HttpDelete]*
+
+<hr>
+
+### 3. Schedule Controller
+##### **Route**: https://localhost:33224/api/Schedule/{Method}
+
+#### 3.1. Add new schedule for business [Bussiness access only (account owner)]
+##### If closed on given day set Hours and Minutes of opening and closeing to null
+*/{id} [HttpPost]*
+**BODY:**
+```
+	{
+		"Monday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Tuesday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Wednesday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Thursday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Friday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Saturday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Sunday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		}
+		
+	}
+```
+
+#### 3.2. Get schedule of business with given id [guest]
+*/{id} [HttpGet]*
+
+#### 3.3 Remove schedule of business with given id [Bussiness access only (account owner)]
+*/{id} [HttpDelete]*
+
+#### 3.4 Update schedule of business with given id [Bussiness access only (account owner)]
+##### If closed on given day set Hours and Minutes of opening and closeing to null
+*/{id} [HttpPut]*
+
+**BODY:**
+```
+	{
+		"Monday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Tuesday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Wednesday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Thursday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Friday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Saturday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		},
+		"Sunday":{
+			"Opening":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			},
+			"Closeing":{
+				"Hours": {(0-23)} / null,
+				"Minutes": {(0-59)} / null
+			}
+		}
+		
+	}
+```
