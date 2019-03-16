@@ -9,7 +9,7 @@ namespace BookingApp.Interfaces.Services.Accounts
         Business Authenticate(string email, string password);
         BusinessDto Get(int id);
         void Create(Business business, string password);
-        void Update(Business businessm, string password = null);
+        void Update(Business businessParam, string password = null);
         void Delete(int id);
     }
 }

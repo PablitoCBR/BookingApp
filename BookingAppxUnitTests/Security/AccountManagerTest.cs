@@ -6,7 +6,7 @@ using BookingApp.Entities.Accounts;
 using Microsoft.Extensions.Logging;
 using BookingApp.Exceptions;
 
-namespace BookingAppxUnitTests.Security
+namespace BookingAppxTests.Security
 {
     public class AccountManagerTest
     {

@@ -10,6 +10,9 @@ namespace BookingApp.Services.Accounts
     {
         public async Task<bool> Validate(Address address)
         {
+            if (address == null)
+                return false;
+
             Task<bool> postalStatus = CheckPostalCodeAsync(address.PostalCode);
 
             if (String.IsNullOrEmpty(address.City))
