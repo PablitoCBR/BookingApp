@@ -8,6 +8,6 @@ namespace BookingApp.Entities.Schedules
     public class WorkingHours
     {
         public Time Opening { get; set; }
-        public Time Closeing { get; set; }
+        public Time Closing { get; set; }
     }
 }

@@ -36,7 +36,7 @@ namespace BookingApp.Controllers
         }
 
         [HttpPost("{id}")]
-        public IActionResult Get(int id, [FromBody]ScheduleDto scheduleDto)
+        public IActionResult Create(int id, [FromBody]ScheduleDto scheduleDto)
         {
             if (Convert.ToInt32(User.Identity.Name) != id)
                 return Unauthorized();

@@ -4,12 +4,12 @@ namespace BookingApp.Dtos.Schedules
 {
     public class ScheduleDto
     {
-        public WorkingHours Monday { get; set; }
-        public WorkingHours Tuesday { get; set; }
-        public WorkingHours Wednesday { get; set; }
-        public WorkingHours Thursday { get; set; }
-        public WorkingHours Friday { get; set; }
-        public WorkingHours Saturday { get; set; }
-        public WorkingHours Sunday { get; set; }
+        public WorkingHoursDto Monday { get; set; }
+        public WorkingHoursDto Tuesday { get; set; }
+        public WorkingHoursDto Wednesday { get; set; }
+        public WorkingHoursDto Thursday { get; set; }
+        public WorkingHoursDto Friday { get; set; }
+        public WorkingHoursDto Saturday { get; set; }
+        public WorkingHoursDto Sunday { get; set; }
     }
 }

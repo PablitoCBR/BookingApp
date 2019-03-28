@@ -5,21 +5,21 @@ namespace BookingApp.Services.Schedules
 {
     public class ScheduleValidator
     {
-        public bool VerifySchedule(ScheduleDto scheduleDto)
+        public bool VerifySchedule(Schedule schedule)
         {
-            if (!VerifyWorkingHours(scheduleDto.Monday))
+            if (!VerifyWorkingHours(schedule.Monday))
                 return false;
-            if (!VerifyWorkingHours(scheduleDto.Thursday))
+            if (!VerifyWorkingHours(schedule.Thursday))
                 return false;
-            if (!VerifyWorkingHours(scheduleDto.Wednesday))
+            if (!VerifyWorkingHours(schedule.Wednesday))
                 return false;
-            if (!VerifyWorkingHours(scheduleDto.Tuesday))
+            if (!VerifyWorkingHours(schedule.Tuesday))
                 return false;
-            if (!VerifyWorkingHours(scheduleDto.Friday))
+            if (!VerifyWorkingHours(schedule.Friday))
                 return false;
-            if (!VerifyWorkingHours(scheduleDto.Saturday))
+            if (!VerifyWorkingHours(schedule.Saturday))
                 return false;
-            if (!VerifyWorkingHours(scheduleDto.Sunday))
+            if (!VerifyWorkingHours(schedule.Sunday))
                 return false;
             return true;
         }
@@ -28,16 +28,14 @@ namespace BookingApp.Services.Schedules
         {
             if (workingHours == null)
                 return false;
-            if (CheckTime(workingHours.Opening) && CheckTime(workingHours.Closeing))
+            if (CheckTime(workingHours.Opening) && CheckTime(workingHours.Closing))
                 return true;
-            return false;
+            else return false;
         }
 
         private bool CheckTime(Time time)
         {
-            if (time == null)
-                return false;
-            if (time.Minutes == null || time.Hours == null)
+            if (time.Hours == null || time.Minutes == null)
                 return true;
             if (time.Hours >= 0 && time.Hours < 24 && time.Minutes >= 0 && time.Minutes < 60)
                 return true;

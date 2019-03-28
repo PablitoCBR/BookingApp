@@ -3,6 +3,7 @@ using BookingApp.Dtos.Accounts;
 using BookingApp.Entities.Accounts;
 using BookingApp.Entities.Schedules;
 using BookingApp.Dtos.Schedules;
+using System;
 
 namespace BookingApp.Helpers
 {
@@ -21,6 +22,29 @@ namespace BookingApp.Helpers
 
             CreateMap<Schedule, ScheduleDto>();
             CreateMap<ScheduleDto, Schedule>();
+
+            CreateMap<WorkingHoursDto, WorkingHours>()
+                .ForMember(dest => dest.Opening, opts => opts.MapFrom(
+                        src => new Time()
+                        {
+                            Hours = src.Opening != null ? System.Convert.ToInt32(src.Opening.Substring(0, src.Opening.IndexOf(":"))) : new int?(),
+                            Minutes = src.Opening != null ? System.Convert.ToInt32(src.Opening.Substring(src.Opening.IndexOf(":") + 1)) : new int?()
+                        }
+                    ))
+                .ForMember(dest => dest.Closing, opts => opts.MapFrom(
+                        src => new Time()
+                        {
+                            Hours = src.Closing != null ? System.Convert.ToInt32(src.Closing.Substring(0, src.Closing.IndexOf(":"))) : new int?(),
+                            Minutes = src.Closing != null ? System.Convert.ToInt32(src.Closing.Substring(src.Closing.IndexOf(":") + 1)) : new int?()
+                        }
+                    ));
+            CreateMap<WorkingHours, WorkingHoursDto>()
+                .ForMember(dest => dest.Opening, opts => opts.MapFrom(
+                        src => src.Opening.Hours != null ? src.Opening.ToString() : null
+                    ))
+                .ForMember(dest => dest.Closing, opts => opts.MapFrom(
+                        src => src.Closing.Hours != null ? src.Closing.ToString() : null
+                    ));
         }
     }
 }

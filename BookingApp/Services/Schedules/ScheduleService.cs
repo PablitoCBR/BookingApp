@@ -24,10 +24,12 @@ namespace BookingApp.Services.Schedules
         {
             if (_scheduleRepository.CheckIfExist(id))
                 throw new ValidationException("Schedule already exist");
-            if (!_scheduleValidator.VerifySchedule(scheduleDto))
-                throw new ValidationException("Invalid schedule format", scheduleDto);
 
             Schedule schedule = _mapper.Map<Schedule>(scheduleDto);
+
+            if (!_scheduleValidator.VerifySchedule(schedule))
+                throw new ValidationException("Invalid schedule format", scheduleDto);
+           
             schedule.BusinessId = id;
             _scheduleRepository.Add(schedule);
         }
@@ -50,10 +52,14 @@ namespace BookingApp.Services.Schedules
 
         public void Update(int id, ScheduleDto scheduleDto)
         {
-            if (!_scheduleValidator.VerifySchedule(scheduleDto))
-                throw new ValidationException("Invalid schedule format", scheduleDto);
+            if (!_scheduleRepository.CheckIfExist(id))
+                throw new ValidationException("Schedule not found!");
 
             Schedule schedule = _mapper.Map<Schedule>(scheduleDto);
+
+            if (!_scheduleValidator.VerifySchedule(schedule))
+                throw new ValidationException("Invalid schedule format", scheduleDto);
+          
             schedule.BusinessId = id;
             _scheduleRepository.Update(schedule);
         }
