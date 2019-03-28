@@ -121,83 +121,40 @@ WebAPI  for application providing service for users that can create account for 
 ##### **Route**: https://localhost:33224/api/Schedule/{Method}
 
 #### 3.1. Add new schedule for business [Bussiness access only (account owner)]
-##### If closed on given day set Hours and Minutes of opening and closeing to null
+##### If closed on given day set opening and closing to null
 */{id} [HttpPost]*
 **BODY:**
 ```
-	{
-		"Monday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Tuesday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Wednesday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Thursday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Friday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Saturday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Sunday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		}
-		
-	}
+{
+	"Monday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Tuesday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Wednesday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Thursday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Friday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Saturday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Sunday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	}	
+}
 ```
 
 #### 3.2. Get schedule of business with given id [guest]
@@ -207,82 +164,39 @@ WebAPI  for application providing service for users that can create account for 
 */{id} [HttpDelete]*
 
 #### 3.4 Update schedule of business with given id [Bussiness access only (account owner)]
-##### If closed on given day set Hours and Minutes of opening and closeing to null
+##### If closed on given day set opening and closing to null
 */{id} [HttpPut]*
 
 **BODY:**
 ```
-	{
-		"Monday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Tuesday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Wednesday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Thursday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Friday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Saturday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		},
-		"Sunday":{
-			"Opening":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			},
-			"Closeing":{
-				"Hours": {(0-23)} / null,
-				"Minutes": {(0-59)} / null
-			}
-		}
-		
-	}
+{
+	"Monday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Tuesday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Wednesday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Thursday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Friday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Saturday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	},
+	"Sunday":{
+		"Opening": {00:00/null},
+		"Closing": {00:00/null}
+	}	
+}
 ```
