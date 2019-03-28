@@ -1,5 +1,5 @@
 ﻿using BookingApp.Dtos.Schedules;
-using BookingApp.Interfaces.Services.Schedules;
+using BookingApp.Interfaces.Services;
 using BookingApp.Interfaces.Repositories;
 using BookingApp.Entities.Schedules;
 using BookingApp.Exceptions;

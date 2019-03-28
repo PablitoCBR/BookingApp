@@ -3,7 +3,7 @@ using Moq;
 using BookingApp.Entities.Accounts;
 using BookingApp.Interfaces.Repositories;
 using BookingApp.Interfaces.Security;
-using BookingApp.Interfaces.Services.Accounts;
+using BookingApp.Interfaces.Services;
 using BookingApp.Services.Accounts;
 using BookingApp.Dtos.Accounts;
 using AutoMapper;

@@ -1,6 +1,6 @@
 ﻿using BookingApp.Dtos.Accounts;
 using BookingApp.Entities.Accounts;
-using BookingApp.Interfaces.Services.Accounts;
+using BookingApp.Interfaces.Services;
 using BookingApp.Interfaces.Repositories;
 using BookingApp.Interfaces.Security;
 using System;

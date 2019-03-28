@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BookingApp.Entities.Accounts;
-using BookingApp.Interfaces.Services.Accounts;
+using BookingApp.Interfaces.Services;
 using AutoMapper;
 using BookingApp.Security;
 using BookingApp.Dtos.Accounts;

@@ -1,6 +1,6 @@
 ﻿using Xunit;
 using BookingApp.Entities.Accounts;
-using BookingApp.Interfaces.Services.Accounts;
+using BookingApp.Interfaces.Services;
 using BookingApp.Services.Accounts;
 using Moq;
 using BookingApp.Helpers;

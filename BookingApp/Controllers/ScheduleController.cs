@@ -1,4 +1,4 @@
-﻿using BookingApp.Interfaces.Services.Schedules;
+﻿using BookingApp.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using BookingApp.Entities.Accounts;

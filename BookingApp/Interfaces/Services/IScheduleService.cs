@@ -1,7 +1,6 @@
 ﻿using BookingApp.Dtos.Schedules;
-using BookingApp.Entities.Schedules;
 
-namespace BookingApp.Interfaces.Services.Schedules
+namespace BookingApp.Interfaces.Services
 {
     public interface IScheduleService
     {

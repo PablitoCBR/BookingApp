@@ -1,8 +1,7 @@
 ﻿using BookingApp.Entities.Accounts;
 using BookingApp.Dtos.Accounts;
-using System.Collections.Generic;
 
-namespace BookingApp.Interfaces.Services.Accounts
+namespace BookingApp.Interfaces.Services
 {
     public interface IBusinessService
     {

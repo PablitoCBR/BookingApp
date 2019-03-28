@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 
-using BookingApp.Interfaces.Services.Accounts;
 using BookingApp.Helpers;
 using BookingApp.Contextes;
 using BookingApp.Services.Accounts;
@@ -23,7 +22,7 @@ using BookingApp.Repositories;
 using BookingApp.Interfaces.Repositories;
 using BookingApp.Interfaces.Security;
 using BookingApp.Entities.Accounts;
-using BookingApp.Interfaces.Services.Schedules;
+using BookingApp.Interfaces.Services;
 using BookingApp.Services.Schedules;
 
 namespace BookingApp
