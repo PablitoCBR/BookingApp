@@ -15,7 +15,7 @@ namespace BookingApp.Helpers
             CreateMap<UserDto, User>();
 
             CreateMap<Business, BusinessDto>();
-            CreateMap<BusinessDto, Business>();     
+            CreateMap<BusinessDto, Business>();
 
             CreateMap<Address, AddressDto>();
             CreateMap<AddressDto, Address>();
@@ -25,26 +25,34 @@ namespace BookingApp.Helpers
 
             CreateMap<WorkingHoursDto, WorkingHours>()
                 .ForMember(dest => dest.Opening, opts => opts.MapFrom(
-                        src => new Time()
-                        {
-                            Hours = src.Opening != null ? System.Convert.ToInt32(src.Opening.Substring(0, src.Opening.IndexOf(":"))) : new int?(),
-                            Minutes = src.Opening != null ? System.Convert.ToInt32(src.Opening.Substring(src.Opening.IndexOf(":") + 1)) : new int?()
-                        }
-                    ))
+                    src => new Time()
+                    {
+                        Hours = src.Opening != null
+                            ? System.Convert.ToInt32(src.Opening.Substring(0, src.Opening.IndexOf(":")))
+                            : new int?(),
+                        Minutes = src.Opening != null
+                            ? System.Convert.ToInt32(src.Opening.Substring(src.Opening.IndexOf(":") + 1))
+                            : new int?()
+                    }
+                ))
                 .ForMember(dest => dest.Closing, opts => opts.MapFrom(
-                        src => new Time()
-                        {
-                            Hours = src.Closing != null ? System.Convert.ToInt32(src.Closing.Substring(0, src.Closing.IndexOf(":"))) : new int?(),
-                            Minutes = src.Closing != null ? System.Convert.ToInt32(src.Closing.Substring(src.Closing.IndexOf(":") + 1)) : new int?()
-                        }
-                    ));
+                    src => new Time()
+                    {
+                        Hours = src.Closing != null
+                            ? System.Convert.ToInt32(src.Closing.Substring(0, src.Closing.IndexOf(":")))
+                            : new int?(),
+                        Minutes = src.Closing != null
+                            ? System.Convert.ToInt32(src.Closing.Substring(src.Closing.IndexOf(":") + 1))
+                            : new int?()
+                    }
+                ));
             CreateMap<WorkingHours, WorkingHoursDto>()
                 .ForMember(dest => dest.Opening, opts => opts.MapFrom(
-                        src => src.Opening.Hours != null ? src.Opening.ToString() : null
-                    ))
+                    src => src.Opening.Hours != null ? src.Opening.ToString() : null
+                ))
                 .ForMember(dest => dest.Closing, opts => opts.MapFrom(
-                        src => src.Closing.Hours != null ? src.Closing.ToString() : null
-                    ));
+                    src => src.Closing.Hours != null ? src.Closing.ToString() : null
+                ));
         }
     }
 }
