@@ -1,10 +1,10 @@
 ﻿using BookingApp.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using BookingApp.Entities.Accounts;
 using BookingApp.Dtos.Schedules;
 using System;
 using BookingApp.Exceptions;
+using BookingApp.Entities.Accounts;
 
 namespace BookingApp.Controllers
 {

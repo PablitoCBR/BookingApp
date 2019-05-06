@@ -7,8 +7,8 @@ namespace BookingApp.Repositories
 {
     public class BusinessRepository : IBusinessRepository
     {
-        private readonly AccountsContext _context;
-        public BusinessRepository(AccountsContext context)
+        private readonly BookingAppContext _context;
+        public BusinessRepository(BookingAppContext context)
         {
             _context = context;
         }

@@ -43,8 +43,7 @@ namespace BookingApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddAutoMapper();
 
-            services.AddDbContext<AccountsContext>(options => options.UseSqlite(Configuration.GetConnectionString("AccountsDbContext")));
-            services.AddDbContext<SchedulesContext>(options => options.UseSqlite(Configuration.GetConnectionString("ScheduleDbContext")));
+            services.AddDbContext<BookingAppContext>(options => options.UseSqlite(Configuration.GetConnectionString("BookingAppDbContext")));
 
             // configure strongly typed settings objects
             IConfigurationSection appSettingsSection = Configuration.GetSection("AppSettings");

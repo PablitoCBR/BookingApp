@@ -7,9 +7,9 @@ namespace BookingApp.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly AccountsContext _context;
+        private readonly BookingAppContext _context;
 
-        public UserRepository(AccountsContext context)
+        public UserRepository(BookingAppContext context)
         {
             _context = context;
         }

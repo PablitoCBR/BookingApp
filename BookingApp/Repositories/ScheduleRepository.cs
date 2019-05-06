@@ -7,9 +7,9 @@ namespace BookingApp.Repositories
 {
     public class ScheduleRepository : IScheduleRepository
     {
-        private readonly SchedulesContext _context;
+        private readonly BookingAppContext _context;
 
-        public ScheduleRepository(SchedulesContext context)
+        public ScheduleRepository(BookingAppContext context)
         {
             _context = context;
         }
