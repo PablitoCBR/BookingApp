@@ -1,5 +1,4 @@
-﻿using BookingApp.Entities;
-using BookingApp.Entities.Schedules;
+﻿using BookingApp.Entities.Schedules;
 
 namespace BookingApp.Services.Schedules
 {
