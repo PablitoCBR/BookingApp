@@ -1,4 +1,4 @@
-# BookingApp RESTful API
+# BookingApp CRUD API
 WebAPI  for application providing service for users that can create account for customer or business and as business you can publish your offer and as customer you are able to make a reservation for service. 
 
 ##  Task:
@@ -7,8 +7,8 @@ WebAPI  for application providing service for users that can create account for 
 - [x] Add roles
 - [x] Business account
 - [x] Adding schedule for businesses
-- [ ] Adding offers(generalized task)
-- [ ] reservations (generalzied task)
+- [ ] reservations 
+- [ ] Business search
 
 #### API:
 #
