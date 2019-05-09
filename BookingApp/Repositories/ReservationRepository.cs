@@ -25,7 +25,7 @@ namespace BookingApp.Repositories
 
         public bool CheckIfAvalible(Reservation reservation)
         {
-            return _context.Reservations.Any(x => x.Date >= reservation.Date && x.Date.AddMinutes(x.Duration) <= reservation.Date.AddMinutes(reservation.Duration));
+            return !_context.Reservations.Any(x => x.Date >= reservation.Date && x.Date.AddMinutes(x.Duration) <= reservation.Date.AddMinutes(reservation.Duration));
         }
 
         public Reservation Get(int id) 

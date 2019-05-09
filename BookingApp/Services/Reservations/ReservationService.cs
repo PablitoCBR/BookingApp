@@ -29,6 +29,9 @@ namespace BookingApp.Services.Reservations
         {
             Reservation reservation = _mapper.Map<Reservation>(reservationDto);
 
+            if (reservation.Date < DateTime.Now)
+                throw new ValidationException("Reservation date cannot be before current");
+
             if (!_reservationRepository.CheckIfAvalible(reservation))
                 throw new ValidationException("Given date is not avalible");
 
@@ -68,50 +71,36 @@ namespace BookingApp.Services.Reservations
             switch (dayOfWeek)
             {
                 case DayOfWeek.Sunday:
-                    if (schedule.Sunday.Opening == null)
-                        return false;
                     if (schedule.Sunday.Opening.CompareTo(reservation.Date) == -1
                         || schedule.Sunday.Closing.CompareTo(reservation.Date.AddMinutes(reservation.Duration)) == 1)
                         return false;
                     else return true;
                 case DayOfWeek.Monday:
-                    if (schedule.Monday.Opening == null)
-                        return false;
                     if (schedule.Monday.Opening.CompareTo(reservation.Date) == -1
                         || schedule.Sunday.Closing.CompareTo(reservation.Date.AddMinutes(reservation.Duration)) == 1)
                         return false;
                     else return true;
                 case DayOfWeek.Tuesday:
-                    if (schedule.Tuesday.Opening == null)
-                        return false;
                     if (schedule.Tuesday.Opening.CompareTo(reservation.Date) == -1
                         || schedule.Tuesday.Closing.CompareTo(reservation.Date.AddMinutes(reservation.Duration)) == 1)
                         return false;
                     else return true;
                 case DayOfWeek.Wednesday:
-                    if (schedule.Wednesday.Opening == null)
-                        return false;
                     if (schedule.Wednesday.Opening.CompareTo(reservation.Date) == -1
                         || schedule.Wednesday.Closing.CompareTo(reservation.Date.AddMinutes(reservation.Duration)) == 1)
                         return false;
                     else return true;
                 case DayOfWeek.Thursday:
-                    if (schedule.Thursday.Opening == null)
-                        return false;
                     if (schedule.Thursday.Opening.CompareTo(reservation.Date) == -1
                         || schedule.Thursday.Closing.CompareTo(reservation.Date.AddMinutes(reservation.Duration)) == 1)
                         return false;
                     else return true;
                 case DayOfWeek.Friday:
-                    if (schedule.Friday.Opening == null)
-                        return false;
                     if (schedule.Friday.Opening.CompareTo(reservation.Date) == -1
                         || schedule.Friday.Closing.CompareTo(reservation.Date.AddMinutes(reservation.Duration)) == 1)
                         return false;
                     else return true;
                 case DayOfWeek.Saturday:
-                    if (schedule.Saturday.Opening == null)
-                        return false;
                     if (schedule.Saturday.Opening.CompareTo(reservation.Date) == -1
                         || schedule.Saturday.Closing.CompareTo(reservation.Date.AddMinutes(reservation.Duration)) == 1)
                         return false;

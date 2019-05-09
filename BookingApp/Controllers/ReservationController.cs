@@ -52,7 +52,7 @@ namespace BookingApp.Controllers
             }
             else
             {
-                if (reservation.BusinessId == userId)
+                if (reservation.BusinessId != userId)
                     return Unauthorized();
             }
 
@@ -76,7 +76,7 @@ namespace BookingApp.Controllers
             }
             else
             {
-                if (reservation.BusinessId == userId)
+                if (reservation.BusinessId != userId)
                     return Unauthorized();
             }
 
@@ -120,6 +120,8 @@ namespace BookingApp.Controllers
         public IActionResult ConfirmReservation(int id)
         {
             Reservation reservation = _reservationService.GetReservation(id);
+            if (reservation == null)
+                return BadRequest(new { message = "Reservation not found " });
 
             if (reservation.UserId == Convert.ToInt32(User.Identity.Name))
             {
