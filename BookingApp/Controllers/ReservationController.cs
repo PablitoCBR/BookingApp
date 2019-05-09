@@ -41,6 +41,8 @@ namespace BookingApp.Controllers
         public IActionResult CancelReservation(int id)
         {
             Reservation reservation = _reservationService.GetReservation(id);
+            if (reservation == null)
+                return BadRequest(new { message = "Reservation not found " });
             int userId = Convert.ToInt32(User.Identity.Name);
 
             if (User.IsInRole(Role.User))
@@ -63,6 +65,8 @@ namespace BookingApp.Controllers
         public IActionResult GetReservation(int id)
         {
             Reservation reservation = _reservationService.GetReservation(id);
+            if (reservation == null)
+                return BadRequest(new { message = "Reservation not found " });
             int userId = Convert.ToInt32(User.Identity.Name);
 
             if (User.IsInRole(Role.User))
@@ -116,6 +120,7 @@ namespace BookingApp.Controllers
         public IActionResult ConfirmReservation(int id)
         {
             Reservation reservation = _reservationService.GetReservation(id);
+
             if (reservation.UserId == Convert.ToInt32(User.Identity.Name))
             {
                 try

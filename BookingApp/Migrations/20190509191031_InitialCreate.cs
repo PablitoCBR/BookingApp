@@ -33,7 +33,8 @@ namespace BookingApp.Migrations
                     UserId = table.Column<int>(nullable: false),
                     BusinessId = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    Duration = table.Column<int>(nullable: false)
+                    Duration = table.Column<int>(nullable: false),
+                    Confirmed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {

@@ -7,5 +7,6 @@ namespace BookingApp.Dtos.Reservations
         public int BusinessId { get; set; }
         public DateTime Date { get; set; }
         public int Duration { get; set; }
+        public bool Confirmed { get; set; }
     }
 }

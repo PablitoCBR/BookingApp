@@ -18,5 +18,7 @@ namespace BookingApp.Entities.Reservations
         public DateTime Date { get; set; } 
         [Required]
         public int Duration { get; set; }
+        [Required]
+        public bool Confirmed { get; set; }
     }
 }

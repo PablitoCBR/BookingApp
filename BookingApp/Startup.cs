@@ -24,6 +24,7 @@ using BookingApp.Interfaces.Security;
 using BookingApp.Entities.Accounts;
 using BookingApp.Interfaces.Services;
 using BookingApp.Services.Schedules;
+using BookingApp.Services.Reservations;
 
 namespace BookingApp
 {
@@ -106,6 +107,8 @@ namespace BookingApp
             services.AddScoped<IScheduleRepository, ScheduleRepository>();
             services.AddScoped<IScheduleService, ScheduleService>();
             services.AddScoped<ScheduleValidator>();
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IReservationService, ReservationService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

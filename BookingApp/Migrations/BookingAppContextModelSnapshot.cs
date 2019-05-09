@@ -102,6 +102,8 @@ namespace BookingApp.Migrations
 
                     b.Property<int>("BusinessId");
 
+                    b.Property<bool>("Confirmed");
+
                     b.Property<DateTime>("Date");
 
                     b.Property<int>("Duration");

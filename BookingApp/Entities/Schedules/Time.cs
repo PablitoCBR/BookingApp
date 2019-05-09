@@ -13,17 +13,41 @@ namespace BookingApp.Entities.Schedules
 
         public int CompareTo(Time time)
         {
+            if (this.Hours == null)
+                return 1;
+
             if (this.Hours > time.Hours)
                 return -1;
             else
             {
-                if (this.Hours == this.Hours)
+                if (this.Hours == time.Hours)
                 {
                     if (this.Minutes > time.Minutes)
                         return -1;
                     else
                     {
                         if (this.Minutes == time.Minutes)
+                            return 0;
+                        else return 1;
+                    }
+                }
+                else return 1;
+            }
+        }
+
+        public int CompareTo(DateTime time)
+        {
+            if (this.Hours > time.Hour)
+                return -1;
+            else
+            {
+                if (this.Hours == time.Hour)
+                {
+                    if (this.Minutes > time.Minute)
+                        return -1;
+                    else
+                    {
+                        if (this.Minutes == time.Minute)
                             return 0;
                         else return 1;
                     }

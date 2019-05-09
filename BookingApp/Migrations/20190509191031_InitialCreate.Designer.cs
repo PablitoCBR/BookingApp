@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookingApp.Migrations
 {
     [DbContext(typeof(BookingAppContext))]
-    [Migration("20190506215204_InitialCreate")]
+    [Migration("20190509191031_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -103,6 +103,8 @@ namespace BookingApp.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<int>("BusinessId");
+
+                    b.Property<bool>("Confirmed");
 
                     b.Property<DateTime>("Date");
 

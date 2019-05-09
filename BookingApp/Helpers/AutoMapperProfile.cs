@@ -4,6 +4,8 @@ using BookingApp.Entities.Accounts;
 using BookingApp.Entities.Schedules;
 using BookingApp.Dtos.Schedules;
 using System;
+using BookingApp.Dtos.Reservations;
+using BookingApp.Entities.Reservations;
 
 namespace BookingApp.Helpers
 {
@@ -22,6 +24,9 @@ namespace BookingApp.Helpers
 
             CreateMap<Schedule, ScheduleDto>();
             CreateMap<ScheduleDto, Schedule>();
+
+            CreateMap<ReservationDto, Reservation>();
+            CreateMap<Reservation, ReservationDto>();
 
             CreateMap<WorkingHoursDto, WorkingHours>()
                 .ForMember(dest => dest.Opening, opts => opts.MapFrom(
