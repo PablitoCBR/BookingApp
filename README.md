@@ -200,3 +200,42 @@ WebAPI  for application providing service for users that can create account for 
 	}	
 }
 ```
+
+<hr>
+
+### 4. Reservation Controller
+##### **Route**: https://localhost:33224/api/Reservation/{Method}
+
+#### 4.1 Make reservation (reservation assigned to user by JWT) [Users access only]
+*/make [HttpPost]*
+**BODY:**
+```
+{
+	"BusinessID": {id of business},
+	"Date": {mm/dd/yyyy hh:mm:ss AM/PM},
+	"Duration": {duration of reservation in minutes}
+}
+```
+
+#### 4.2 Cancel reservation [Users and Businesses access only]
+*/cancel/{reservation_id} [HttpDelete]*
+
+#### 4.3 Confirm reservation [Business asigned to reservation access only]
+*/confirm/{reservation_id} [HtppPut]*
+
+#### 4.4 Get reservation [User or Business asigned to reservation access only]
+*/{reservation_id} [HttpGet]*
+
+#### 4.5 Get cureent reservations [Users and Businesses access only]
+*/ [HttpGet]*
+
+#### 4.6 Get previous reservations [Users and Businesses access only]
+*/history [HttpGet]*
+
+<hr>
+
+### 5. Searcg Controller
+##### **Route**: https://localhost:33224/api/Search/{Method}
+
+#### 5.1 Search by company name [guest]
+*/{company_name_patter} [HttpGet]*
