@@ -28,6 +28,9 @@ namespace BookingApp.Helpers
             CreateMap<ReservationDto, Reservation>();
             CreateMap<Reservation, ReservationDto>();
 
+            CreateMap<Business, BusinessSearchResultsDto>();
+            CreateMap<BusinessSearchResultsDto, Business>();
+
             CreateMap<WorkingHoursDto, WorkingHours>()
                 .ForMember(dest => dest.Opening, opts => opts.MapFrom(
                     src => new Time()

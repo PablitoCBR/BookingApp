@@ -8,7 +8,7 @@ WebAPI  for application providing service for users that can create account for 
 - [x] Business account
 - [x] Adding schedule for businesses
 - [x] Reservations 
-- [ ] Business search
+- [x] Business search
 
 #### API:
 #

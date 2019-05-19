@@ -2,6 +2,9 @@
 using BookingApp.Contextes;
 using BookingApp.Entities.Accounts;
 using System.Linq;
+using System.Collections.Generic;
+using System;
+using System.Text.RegularExpressions;
 
 namespace BookingApp.Repositories
 {
@@ -44,5 +47,12 @@ namespace BookingApp.Repositories
         }
 
         public Business Get(string email) => _context.Businesses.SingleOrDefault(x => x.Email == email);
+
+
+        public ICollection<Business> GetAll(string pattern)
+        {
+            Regex regex = new Regex($".*{pattern}.*", RegexOptions.IgnoreCase);
+            return _context.Businesses.Where(x => regex.IsMatch(x.CompanyName)).ToList();
+        }
     }
 }

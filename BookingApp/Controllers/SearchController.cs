@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using BookingApp.Interfaces.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BookingApp.Controllers
@@ -11,5 +8,18 @@ namespace BookingApp.Controllers
     [ApiController]
     public class SearchController : ControllerBase
     {
+        private readonly ISearchService _searchService;
+
+        public SearchController(ISearchService searchService)
+        {
+            this._searchService = searchService;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{businessName}")]
+        public IActionResult Get(string businessName)
+        {
+            return Ok(_searchService.SearchByCompanyName(businessName));
+        }
     }
 }
